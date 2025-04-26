@@ -65,16 +65,26 @@
 .footer-icons {
   color: #f0f0f0;
   border: 1px solid #f0f0f0;
-  border-radius: 20px;
-  padding: 8px;
+  border-radius: 30px;
+  padding: 15px;
+  transition: transform 0.5s ease !important;
+  transform-origin: center center !important;
+  cursor: pointer;
+
 }
 .facebook-icon {
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 15px;
+  margin-right: 15px;
 }
+
+.footer-icons:hover {
+  transform: rotate(360deg) scale(1.1);
+}
+
+
 .divider {
   border-bottom: 1px solid #f0f0f0;
-  margin: 50px 85px 60px 46px;
+  margin: 50px 72px 60px 72px;
 }
 
 .copyright {
