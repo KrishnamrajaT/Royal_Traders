@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import JoinNowButton from "../components/JoinNowbtn";
 
 const pages = ["Join Now"];
 
@@ -51,13 +52,12 @@ function Header() {
             component="a"
             href="#app-bar-with-responsive-menu"
             sx={{
-              mr: 2,
               display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
               fontWeight: 700,
-              letterSpacing: ".3rem",
               color: "#F0F0F0",
               textDecoration: "none",
+              fontSize: "30px",
+              letterSpacing: "2px",
             }}
           >
             Royal Traders
@@ -79,12 +79,12 @@ function Header() {
               anchorEl={anchorElNav}
               anchorOrigin={{
                 vertical: "bottom",
-                horizontal: "left",
+                horizontal: "right",
               }}
               keepMounted
               transformOrigin={{
                 vertical: "top",
-                horizontal: "left",
+                horizontal: "right",
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
@@ -106,10 +106,10 @@ function Header() {
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
+              fontSize: "25px",
+              letterSpacing: "3px",
               flexGrow: 1,
-              fontFamily: "monospace",
               fontWeight: 700,
-              letterSpacing: ".3rem",
               color: "#F0F0F0",
               textDecoration: "none",
             }}
@@ -123,26 +123,12 @@ function Header() {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "#F0F0F0", display: "block" }}
               >
-                {page}
+                {/* {page} */}
               </Button>
             ))}
           </Box>
-          <Box sx={{ flexGrow: 0 }}>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-            >
-              Join Now
-            </Menu>
+          <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
+            <JoinNowButton/>
           </Box>
         </Toolbar>
       </Container>

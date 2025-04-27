@@ -2,7 +2,7 @@ import React from "react";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
 import TelegramIcon from "@mui/icons-material/Telegram";
-import Divider from "@mui/material/Divider";
+import YouTubeIcon from "@mui/icons-material/YouTube";
 import "./Footer.css";
 
 const Footer = () => {
@@ -21,27 +21,51 @@ const Footer = () => {
           <ul>
             <li className="services">Live Trading</li>
             <li className="services">Classes</li>
-            <li className="services">Risk Management</li>
           </ul>
         </div>
 
         <div className="footer-section">
-          <h4>ABOUT US</h4>
+          <h4>CONTACT US</h4>
           <ul>
-            <li>CONTACT US</li>
-            <li>AFFILIATES</li>
-            <li>RESOURCES</li>
+            <li>whatsApp</li>
+            <li>Gmail</li>
           </ul>
         </div>
       </div>
       <div className="divider"></div>
       <div style={{ textAlign: "center" }}>
-        <InstagramIcon className="footer-icons" />
-        <FacebookRoundedIcon
-          className="footer-icons facebook-icon"
+      <h5 className="media-text">Follow us on:</h5>
+        <a
+          href="https://www.instagram.com/royaltradercherry?igsh=ZnFoanRjdmoxeGZz"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <InstagramIcon className="footer-icons" />
+        </a>
 
-        />
-        <TelegramIcon className="footer-icons" />
+        <a
+          href="https://www.facebook.com/people/royaltradercherry/61564518043303/?mibextid=ZbWKwL"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FacebookRoundedIcon className="footer-icons facebook-icon" />
+        </a>
+
+        <a
+          href="https://t.me/ROYALTRADERCHERRY"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <TelegramIcon className="footer-icons" />
+        </a>
+
+        <a
+          href="https://www.youtube.com/@royaltradercherrry"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <YouTubeIcon className="footer-icons facebook-icon" />
+        </a>
         <div className="copyright">©Copyright. All rights reserved.</div>
       </div>
     </footer>

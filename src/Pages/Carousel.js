@@ -6,10 +6,10 @@ const bullImage =
 const bullBear = "https://www.wallpaperuse.com/wallp/21-213194_m.jpg";
 
 const cards = [
-  { id: 1, bg: bullImage, title: "Learn Trading" },
-  { id: 2, bg: bullBear, title: "Daily Analysis" },
-  { id: 3, bg: bullImage, title: "Zoom Sessions" },
-  { id: 4, bg: bullBear, title: "Risk Management" },
+  { id: 1, bg: bullImage, title: "Assisting 5K+ Traders & counting" },
+  { id: 4, bg: bullImage, title: "Learn Trading from Basics to Advance" },
+  { id: 3, bg: bullImage, title: "Weekly Sessions" },
+  { id: 2, bg: bullBear, title: "Make Analysis like a Pro" },
 ];
 
 export default function AutoCarousel() {

@@ -36,7 +36,7 @@
   color: #666;
 }
 .services {
-  font-size: 15px !important;
+  font-size: 17px !important;
   letter-spacing: 0.5px !important;
 }
 
@@ -55,7 +55,7 @@
 
 .footer-section ul li {
   margin-bottom: 8px;
-  font-size: 14px;
+  font-size: 17px;
   cursor: pointer;
 }
 
@@ -70,7 +70,6 @@
   transition: transform 0.5s ease !important;
   transform-origin: center center !important;
   cursor: pointer;
-
 }
 .facebook-icon {
   margin-left: 15px;
@@ -80,7 +79,10 @@
 .footer-icons:hover {
   transform: rotate(360deg) scale(1.1);
 }
-
+.media-text {
+  font-size: 24px;
+  font-family: cursive;
+}
 
 .divider {
   border-bottom: 1px solid #f0f0f0;
