@@ -20,9 +20,8 @@
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.05);
     overflow: hidden;
-    font-family: 'Inter', sans-serif;
     color: var(--light);
-    margin: 2rem auto;
+    margin: 1rem auto;
     z-index: 1;
   }
   
@@ -189,7 +188,6 @@
   @media (max-width: 768px) {
     .mentorship-card {
       padding: 1.5rem;
-      margin: 1rem;
     }
     
     .headline {
