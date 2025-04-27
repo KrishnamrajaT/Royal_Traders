@@ -1,6 +1,4 @@
 import React from "react";
-import BlockIcon from '@mui/icons-material/Block';
-
 import "./Cards.css";
 
 function Cards() {
