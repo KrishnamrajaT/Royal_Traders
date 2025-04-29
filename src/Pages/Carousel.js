@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import bullImage from '../Assets/bull.jpg';
+import bull_bear from '../Assets/bull&Bear.png';
+import teaching from '../Assets/teaching.jpeg';
+import sessions from '../Assets/ZoomSessions.jpeg';
+import learn from '../Assets/men_learning.png';
 import "./Carousel.css"; // Create this CSS file
 
-const bullImage = "https://cdn.magicdecor.in/com/2024/03/01154734/The-Raging-Bull-Stock-Market-Wallpaper-for-Traders.jpg";
-const bullBear = "https://www.wallpaperuse.com/wallp/21-213194_m.jpg";
 
 const cards = [
-  { id: 1, bg: bullImage, title: "Assisting 5K+ Traders & counting" },
-  { id: 4, bg: bullImage, title: "Learn Trading from Basics to Advance" },
-  { id: 3, bg: bullImage, title: "Weekly Sessions" },
-  { id: 2, bg: bullBear, title: "Make Analysis like a Pro" },
+  { id: 1, bg: bull_bear, title: "Assisting 5K+ Traders & counting" },
+  { id: 4, bg: teaching, title: "Learn Trading from Basics to Advance" },
+  { id: 3, bg: sessions, title: "Weekly Sessions" },
+  { id: 2, bg: learn, title: "Make Analysis like a Pro" },
 ];
 
 export default function AutoCarousel() {
@@ -35,7 +38,7 @@ export default function AutoCarousel() {
           className="carousel-card"
           style={{ backgroundImage: `url(${card.bg})` }}
         >
-          <div className="card-content">
+          <div className="carousel-card-content">
             <h2>{card.title}</h2>
           </div>
         </motion.div>
