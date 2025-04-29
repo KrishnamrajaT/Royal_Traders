@@ -125,8 +125,8 @@ function Header() {
               flexGrow: 0,
               display: { xs: "flex", md: "none" },
               position: "fixed",
-              top: "420px",
-              left: "210px",
+              top: "75px",
+              left: "249px",
             }}
           >
             <JoinNowButton />
