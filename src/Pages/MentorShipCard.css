@@ -48,8 +48,8 @@
   
   .badge {
     position: absolute;
-    top: -1rem;
-    right: -1rem;
+    top: -20px;
+    right: -2rem;
     background: var(--danger);
     color: white;
     padding: 0.5rem 1rem;
@@ -57,7 +57,7 @@
     font-size: 0.8rem;
     font-weight: bold;
     box-shadow: 0 4px 15px rgba(239, 71, 111, 0.3);
-    transform: rotate(5deg);
+    transform: rotate(35deg);
   }
   
   .headline {
@@ -76,10 +76,10 @@
     background: transparent;
   }
   
-  .break {
+  /* .break {
     display: inline-block;
     margin-top: 0.5rem;
-  }
+  } */
   
   .subheading {
     font-size: 1.1rem;

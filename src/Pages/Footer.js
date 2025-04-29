@@ -27,14 +27,32 @@ const Footer = () => {
         <div className="footer-section">
           <h4>CONTACT US</h4>
           <ul>
-            <li>whatsApp</li>
-            <li>Gmail</li>
+            <li>
+              <a
+              className="anchor"
+                href="https://wa.me/8886184253"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                whatsApp
+              </a>
+            </li>
+            <li>
+              <a
+              className="anchor"
+                href="mailto:rajkrishnam120@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Gmail
+              </a>
+            </li>
           </ul>
         </div>
       </div>
       <div className="divider"></div>
       <div style={{ textAlign: "center" }}>
-      <h5 className="media-text">Follow us on:</h5>
+        <h5 className="media-text">Follow us on:</h5>
         <a
           href="https://www.instagram.com/royaltradercherry?igsh=ZnFoanRjdmoxeGZz"
           target="_blank"
@@ -66,7 +84,7 @@ const Footer = () => {
         >
           <YouTubeIcon className="footer-icons facebook-icon" />
         </a>
-        <div className="copyright">©Copyright. All rights reserved.</div>
+        {/* <div className="copyright">©Copyright. All rights reserved.</div> */}
       </div>
     </footer>
   );

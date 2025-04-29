@@ -1,44 +1,56 @@
-import React from 'react';
-import './MentorShipCard.css';
+import React from "react";
+import "./MentorShipCard.css";
 
 function MentorshipCard() {
   return (
     <div className="mentorship-card">
       <div className="card-glow"></div>
-      
+
       <div className="card-header">
         <div className="badge">LIMITED SEATS</div>
         <h1 className="headline">
-          <span className="highlight">3-Month</span> Trading Mentorship 
-          <span className="break"><br/>& Learning Program</span>
+          <span className="highlight">3-Month</span> Trading Mentorship
+          <span className="break">
+            <br />& Learning Program
+          </span>
         </h1>
       </div>
 
       <div className="card-content">
         <p className="subheading">
-          Practical stock market learning through real-time examples, trade plans, 
-          and strategy sessions. Learn how I approach the market daily and gain 
-          confidence in trading with discipline.
+          Practical stock market learning through real-time examples, trade
+          plans, and strategy sessions. Learn how I approach the market daily
+          and gain confidence in trading with discipline.
         </p>
 
         <div className="features">
           <div className="feature-item">
             <div className="feature-icon">📈</div>
-            <span>Daily Live Market Analysis</span>
+            <span>
+              Daily Live Market Analysis trade plans in a private Telegram group
+            </span>
           </div>
           <div className="feature-item">
-            <div className="feature-icon">🧠</div>
-            <span>Proprietary Trading Strategies</span>
+            <div className="feature-icon">🎓</div>
+            <span>Weekly educational Zoom sessions</span>
+          </div>
+          <div className="feature-item">
+            <div className="feature-icon">⚖️</div>
+            <span>Learn risk management, entry-exit logic, capital protection</span>
+          </div>
+          <div className="feature-item">
+            <div className="feature-icon">🧩</div>
+            <span>Strategy-based learning (strategies will be shared those iam into)</span>
           </div>
           <div className="feature-item">
             <div className="feature-icon">🛡️</div>
-            <span>Risk Management Framework</span>
+            <span>Trade management support (how to trail, when to exit, etc.)</span>
           </div>
         </div>
 
         <div className="cta-section">
           <div className="price-tag">
-            <span className="price">$5,999</span>
+            <span className="price">5,999/-</span>
             <span className="duration">for 3 Months</span>
           </div>
           <button className="enroll-button">
@@ -50,7 +62,8 @@ function MentorshipCard() {
 
       <div className="card-footer">
         <div className="disclaimer">
-          <span>⚠️</span> Not a get-rich-quick scheme. Requires consistent effort.
+          <span>⚠️</span> Not a get-rich-quick scheme. Requires consistent
+          effort.
         </div>
       </div>
     </div>

@@ -9,7 +9,7 @@ function Cards() {
         <div className="card service-card">
           <div className="card-glow" style={{ '--glow-color': 'rgba(58, 134, 255, 0.3)' }}></div>
           <div className="card-header">
-            <h2>Services 🤝</h2>
+            <h2>Services</h2>
           </div>
           <div className="card-body">
             <ul className="feature-list">
@@ -51,7 +51,7 @@ function Cards() {
         <div className="card disclaimer-card">
           <div className="card-glow" style={{ '--glow-color': 'rgba(239, 71, 111, 0.2)' }}></div>
           <div className="card-header">
-            <h2>Disclaimer 🚫</h2>
+            <h2>Disclaimer</h2>
           </div>
           <div className="card-body">
             <ul className="disclaimer-list">
