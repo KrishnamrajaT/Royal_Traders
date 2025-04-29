@@ -201,8 +201,8 @@
     }
     
     .badge {
-      top: -0.5rem;
-      right: -0.5rem;
+      top: -1.5rem;
+        right: -2.5rem;
       font-size: 0.7rem;
     }
   }
