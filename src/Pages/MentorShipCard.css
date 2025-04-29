@@ -205,4 +205,17 @@
         right: -2.5rem;
       font-size: 0.7rem;
     }
+    .feature-item {
+      align-items: flex-start; /* Align items to top */
+    }
+  
+    .feature-icon {
+      margin-top: 0.25rem; /* Perfect vertical alignment */
+      flex-shrink: 0; /* Prevent icon from shrinking */
+    }
+  
+    .feature-item span {
+      text-align: left;
+      line-height: 1.4; /* Better text wrapping */
+    }
   }
