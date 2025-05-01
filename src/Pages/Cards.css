@@ -108,7 +108,7 @@
   padding-left: 0 !important;
 }
 
-.feature-item {
+.cards-feature-item {
   display: flex;
   align-items: flex-start;
   margin-bottom: 1rem;
@@ -116,7 +116,7 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.feature-item:last-child {
+.cards-feature-item:last-child {
   border-bottom: none;
 }
 
@@ -179,5 +179,17 @@
 
   .price {
     font-size: 1.5rem;
+  }
+  .cards-feature-item {
+    font-size: 14px;
+  }
+  .important-note p {
+    font-size: 14px;
+  }
+  .disclaimer-list li {
+    font-size: 14px;
+  }
+  .disclaimer-list li {
+    margin-bottom: 0.8rem;
   }
 }

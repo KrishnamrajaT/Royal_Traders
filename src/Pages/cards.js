@@ -13,24 +13,24 @@ function Cards() {
           </div>
           <div className="card-body">
             <ul className="feature-list">
-              <li className="feature-item">
+              <li className="cards-feature-item">
                 <span className="icon">📊</span>
                 <span>
                   Daily market analysis & trade plans in a private Telegram
                   group
                 </span>
               </li>
-              <li className="feature-item">
+              <li className="cards-feature-item">
                 <span className="icon">🎓</span>
                 <span>Weekly educational Zoom sessions (Live or recorded)</span>
               </li>
-              <li className="feature-item">
+              <li className="cards-feature-item">
                 <span className="icon">🛡️</span>
                 <span>
                   Learn risk management, entry-exit logic, capital protection
                 </span>
               </li>
-              <li className="feature-item">
+              <li className="cards-feature-item">
                 <span className="icon">📈</span>
                 <span>
                   Strategy-based learning (exact strategies I personally use)

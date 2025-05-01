@@ -2,16 +2,11 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import JoinNowButton from "../components/JoinNowbtn";
-
 const pages = ["Join Now"];
 
 function Header() {
@@ -53,40 +48,6 @@ function Header() {
             Royal Traders
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="#F0F0F0"
-            >
-              <MenuIcon sx={{ color: "#F0F0F0" }} />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{ display: { xs: "block", md: "none" } }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: "end" }}>{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
@@ -120,7 +81,7 @@ function Header() {
           <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
             <JoinNowButton />
           </Box>
-          <Box
+          {/* <Box
             sx={{
               flexGrow: 0,
               display: { xs: "flex", md: "none" },
@@ -130,7 +91,7 @@ function Header() {
             }}
           >
             <JoinNowButton />
-          </Box>
+          </Box> */}
         </Toolbar>
       </Container>
     </AppBar>

@@ -40,7 +40,7 @@ const Footer = () => {
             <li>
               <a
               className="anchor"
-                href="mailto:rajkrishnam120@gmail.com"
+                href="mailto:royaltradercherry@gmail.com"
                 target="_blank"
                 rel="noopener noreferrer"
               >

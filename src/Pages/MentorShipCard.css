@@ -75,14 +75,9 @@
     color: var(--primary);
     background: transparent;
   }
-  
-  /* .break {
-    display: inline-block;
-    margin-top: 0.5rem;
-  } */
-  
+   
   .subheading {
-    font-size: 1.1rem;
+    font-size: 15px;
     line-height: 1.6;
     color: var(--muted);
     margin-bottom: 2rem;
@@ -141,7 +136,7 @@
   }
   
   .enroll-button {
-    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    background: linear-gradient(45deg, #2563EB 0%, #1E40AF 100%);
     color: white;
     border: none;
     padding: 1rem 2rem;
@@ -189,9 +184,11 @@
     .mentorship-card {
       padding: 1.5rem;
     }
-    
+    .price{
+      font-size: 30px;
+    }
     .headline {
-      font-size: 1.8rem;
+      font-size: 21px;
     }
     
     .cta-section {
@@ -216,6 +213,7 @@
   
     .feature-item span {
       text-align: left;
-      line-height: 1.4; /* Better text wrapping */
+      line-height: 1.4; 
+      font-size: 14px;/* Better text wrapping */
     }
   }
