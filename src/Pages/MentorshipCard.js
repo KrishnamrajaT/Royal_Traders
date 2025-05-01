@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import DisclaimerForm from "./DisclaimerModal";
+import DisclaimerForm from "../components/DisclaimerModal";
 import "./MentorShipCard.css";
 
 function MentorshipCard() {
