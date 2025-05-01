@@ -7,33 +7,59 @@ function Cards() {
       <div className="cards-container">
         {/* Services Card */}
         <div className="card service-card">
-          <div className="card-glow" style={{ '--glow-color': 'rgba(58, 134, 255, 0.3)' }}></div>
+          <div
+            className="card-glow"
+            style={{ "--glow-color": "rgba(58, 134, 255, 0.3)" }}
+          ></div>
           <div className="card-header">
-            <h2>Services</h2>
+            <h2>Program Features</h2>
           </div>
           <div className="card-body">
             <ul className="feature-list">
               <li className="cards-feature-item">
                 <span className="icon">📊</span>
                 <span>
-                  Daily market analysis & trade plans in a private Telegram
-                  group
+                  Daily Market Education Master how to analyze Bank Nifty/Nifty
+                  trends every morning with real-time chart reviews and CE/PE
+                  planning (no signals—only strategies)
                 </span>
               </li>
               <li className="cards-feature-item">
                 <span className="icon">🎓</span>
-                <span>Weekly educational Zoom sessions (Live or recorded)</span>
+                <span>
+                  Live Sessions Every Week Get trained in advanced price action,
+                  entry-exit logic, and psychology through high-energy weekly
+                  live classes (with replays).
+                </span>
               </li>
               <li className="cards-feature-item">
                 <span className="icon">🛡️</span>
                 <span>
-                  Learn risk management, entry-exit logic, capital protection
+                  Real-Trade Case Study Vault Access a private library of recent
+                  trade breakdowns—learn what works and what doesn’t.
                 </span>
               </li>
               <li className="cards-feature-item">
-                <span className="icon">📈</span>
+                <span className="icon">👥</span>
                 <span>
-                  Strategy-based learning (exact strategies I personally use)
+                  Premium Learning Community Join a private Telegram group where
+                  learners share charts, ask questions, and grow together. Daily
+                  summaries + discussion.
+                </span>
+              </li>
+              <li className="cards-feature-item">
+                <span className="icon">🛠️</span>
+                <span>
+                  Personal Strategy Building Learn how to build your own setup.
+                  Includes one-on-one review of your trades and corrections
+                </span>
+              </li>
+              <li className="cards-feature-item">
+                <span className="icon">📋</span>
+                <span>
+                  Bonus Templates & Tools Free trading journals, risk
+                  calculators, and daily prep sheets—boost discipline and reduce
+                  losses.
                 </span>
               </li>
             </ul>
@@ -49,7 +75,10 @@ function Cards() {
 
         {/* Disclaimer Card */}
         <div className="card disclaimer-card">
-          <div className="card-glow" style={{ '--glow-color': 'rgba(239, 71, 111, 0.2)' }}></div>
+          <div
+            className="card-glow"
+            style={{ "--glow-color": "rgba(239, 71, 111, 0.2)" }}
+          ></div>
           <div className="card-header">
             <h2>Disclaimer</h2>
           </div>
@@ -61,8 +90,8 @@ function Cards() {
                 anyone's account
               </li>
               <li>
-                Trading involves financial risk. Profits and losses are part
-                of the journey
+                Trading involves financial risk. Profits and losses are part of
+                the journey
               </li>
               <li>Past performance is not a guarantee of future results</li>
               <li>
@@ -72,7 +101,8 @@ function Cards() {
             </ul>
             <div className="important-note">
               <p>
-                <strong>Note:</strong> Trading requires discipline and risk management.
+                <strong>Note:</strong> Trading requires discipline and risk
+                management.
               </p>
             </div>
           </div>

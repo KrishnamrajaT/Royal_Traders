@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import DisclaimerForm from "./DisclaimerModal";
 import "./MentorShipCard.css";
 
@@ -24,7 +24,6 @@ function MentorshipCard() {
           plans, and strategy sessions. Learn how I approach the market daily
           and gain confidence in trading with discipline.
         </p>
-
         <div className="features">
           <div className="feature-item">
             <div className="feature-icon">📈</div>
@@ -33,20 +32,50 @@ function MentorshipCard() {
             </span>
           </div>
           <div className="feature-item">
-            <div className="feature-icon">🎓</div>
-            <span>Weekly educational Zoom sessions</span>
-          </div>
-          <div className="feature-item">
             <div className="feature-icon">⚖️</div>
-            <span>Learn risk management, entry-exit logic, capital protection</span>
+            <span>
+              Learn risk management, entry-exit logic, capital protection
+            </span>
           </div>
           <div className="feature-item">
             <div className="feature-icon">🧩</div>
-            <span>Strategy-based learning (strategies will be shared those iam into)</span>
+            <span>
+              Strategy-based learning (strategies will be shared those iam into)
+            </span>
           </div>
           <div className="feature-item">
             <div className="feature-icon">🛡️</div>
-            <span>Trade management support (how to trail, when to exit, etc.)</span>
+            <span>
+              Trade management support (how to trail, when to exit, etc.)
+            </span>
+          </div>
+          <div className="feature-item">
+            <div className="feature-icon">📹</div>
+            <span>
+              Weekly or monthly sessions explaining trading setups, CE/PE
+              levels, and risk management.
+            </span>
+          </div>
+          <div className="feature-item">
+            <div className="feature-icon">📖</div>
+            <span>
+              Trade breakdowns showing learning-based examples (no signals),
+              purely for education.
+            </span>
+          </div>
+          <div className="feature-item">
+            <div className="feature-icon">✍️</div>
+            <span>
+              Write regular posts explaining trends (Nifty/BankNifty) and
+              technical setups without giving trade entries
+            </span>
+          </div>
+          <div className="feature-item">
+            <div className="feature-icon">📓</div>
+            <span>
+              Give a downloadable sheet for students to track and analyze their
+              own trades.
+            </span>
           </div>
         </div>
 
@@ -55,7 +84,10 @@ function MentorshipCard() {
             <span className="price">5,999/-</span>
             <span className="duration">for 3 Months</span>
           </div>
-          <button onClick={()=>setIsModalOpen(true)} className="enroll-button">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="enroll-button"
+          >
             Join Program Now
             <span className="arrow">→</span>
           </button>
@@ -67,14 +99,14 @@ function MentorshipCard() {
           <span>⚠️</span> Not a get-rich-quick scheme. Requires consistent
           effort.
         </div>
-        <DisclaimerForm 
-        open={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onPaymentInitiated={() => {
-          console.log("Payment initiated!");
-          setIsModalOpen(false);
-        }}
-      />
+        <DisclaimerForm
+          open={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onPaymentInitiated={() => {
+            console.log("Payment initiated!");
+            setIsModalOpen(false);
+          }}
+        />
       </div>
     </div>
   );

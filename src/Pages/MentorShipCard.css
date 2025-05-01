@@ -23,6 +23,7 @@
     color: var(--light);
     margin: 1rem auto;
     z-index: 1;
+    font-size: 18px;
   }
   
   .card-glow {
