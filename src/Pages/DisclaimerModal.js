@@ -64,8 +64,8 @@ const CheckboxItem = styled(FormControlLabel)(({ theme }) => ({
     paddingTop: 0,
     [theme.breakpoints.down("sm")]: {
       padding: theme.spacing(0.25), // Reduced from 0.5 for better mobile alignment
-      marginTop: -15, 
-      marginRight:5// Small adjustment for pixel-perfect alignment
+      marginTop: -15,
+      marginRight: 5, // Small adjustment for pixel-perfect alignment
     },
   },
   "& .MuiTypography-root": {
@@ -77,7 +77,6 @@ const CheckboxItem = styled(FormControlLabel)(({ theme }) => ({
     },
   },
 }));
-
 
 const DisclaimerForm = ({ open, onClose, onPaymentInitiated }) => {
   const theme = useTheme();
@@ -191,15 +190,17 @@ const DisclaimerForm = ({ open, onClose, onPaymentInitiated }) => {
               {
                 name: "educational",
                 label:
-                  "I understand this program is for educational purposes only.",
+                  "I clearly understand this program is strictly for educational purposes only",
               },
               {
                 name: "noGuarantees",
-                label: "I will not expect guaranteed profits or signals.",
+                label:
+                  "I will not expect guaranteed profits or signals account handling.",
               },
               {
                 name: "paperTrading",
-                label: "I will do paper trading for the first one month.",
+                label:
+                  "I will conduct simulated paper trading exercises for the first month",
               },
               {
                 name: "acceptRisk",
@@ -209,7 +210,7 @@ const DisclaimerForm = ({ open, onClose, onPaymentInitiated }) => {
               {
                 name: "agreeTerms",
                 label:
-                  "I agree to all the terms and disclaimers mentioned above.",
+                  "I fully agree to all the terms and disclaimers mentioned above.",
               },
             ].map((item) => (
               <CheckboxItem
