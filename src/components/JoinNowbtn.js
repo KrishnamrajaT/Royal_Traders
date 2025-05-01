@@ -1,8 +1,8 @@
-import React from "react";
+import React,{useState} from "react";
 import { Button } from "@mui/material";
 import { styled, keyframes } from "@mui/system";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
-
+import DisclaimerForm from "../Pages/DisclaimerModal";
 
 const goldenShimmer = keyframes`
   0% {
@@ -28,7 +28,7 @@ const pulseZoom = keyframes`
 const ShimmerButton = styled(Button)({
   position: "relative",
   overflow: "hidden",
-  background: "linear-gradient(90deg, #1e3c72 25%, #2a5298 50%, #1e3c72 75%)",
+  background: "linear-gradient(45deg, #2563EB 0%, #1E40AF 100%)",
   backgroundSize: "400% 100%",
   animation: `${goldenShimmer} 2s infinite linear, ${pulseZoom} 3s infinite ease-in-out`,
   borderRadius: "15px",
@@ -41,14 +41,30 @@ const ShimmerButton = styled(Button)({
   "&:hover": {
     animation: `${pulseZoom} 2s infinite`,
     backgroundSize: "400% 100%",
+    background: "linear-gradient(45deg, #1E40AF 0%, #2563EB 100%)"
     // boxShadow: "0 10px 40px rgba(191, 160, 70, 0.8)",
   },
 });
 
 export default function JoinNowButton() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <>
-      <ShimmerButton startIcon={<RocketLaunchIcon/>} variant="contained">Join Now</ShimmerButton>
+      <ShimmerButton
+        onClick={()=>setIsModalOpen(true)}
+        startIcon={<RocketLaunchIcon />}
+        variant="contained"
+      >
+        Join Now
+      </ShimmerButton>
+      <DisclaimerForm 
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onPaymentInitiated={() => {
+          console.log("Payment initiated!");
+          setIsModalOpen(false);
+        }}
+      />
     </>
   );
 }

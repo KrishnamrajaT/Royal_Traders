@@ -1,7 +1,9 @@
-import React from "react";
+import React,{useState} from "react";
+import DisclaimerForm from "./DisclaimerModal";
 import "./MentorShipCard.css";
 
 function MentorshipCard() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <div className="mentorship-card">
       <div className="card-glow"></div>
@@ -53,7 +55,7 @@ function MentorshipCard() {
             <span className="price">5,999/-</span>
             <span className="duration">for 3 Months</span>
           </div>
-          <button className="enroll-button">
+          <button onClick={()=>setIsModalOpen(true)} className="enroll-button">
             Join Program Now
             <span className="arrow">→</span>
           </button>
@@ -65,6 +67,14 @@ function MentorshipCard() {
           <span>⚠️</span> Not a get-rich-quick scheme. Requires consistent
           effort.
         </div>
+        <DisclaimerForm 
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onPaymentInitiated={() => {
+          console.log("Payment initiated!");
+          setIsModalOpen(false);
+        }}
+      />
       </div>
     </div>
   );
