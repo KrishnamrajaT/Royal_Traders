@@ -58,12 +58,14 @@ const ModalContent = styled(Box)(({ theme }) => ({
 
 const CheckboxItem = styled(FormControlLabel)(({ theme }) => ({
   margin: theme.spacing(0.5, 0),
-  alignItems: "flex-start",
+  alignItems: "center",
   "& .MuiCheckbox-root": {
     color: "#3B82F6",
     paddingTop: 0,
     [theme.breakpoints.down("sm")]: {
-      padding: theme.spacing(0.5),
+      padding: theme.spacing(0.25), // Reduced from 0.5 for better mobile alignment
+      marginTop: -15, 
+      marginRight:5// Small adjustment for pixel-perfect alignment
     },
   },
   "& .MuiTypography-root": {
@@ -75,6 +77,7 @@ const CheckboxItem = styled(FormControlLabel)(({ theme }) => ({
     },
   },
 }));
+
 
 const DisclaimerForm = ({ open, onClose, onPaymentInitiated }) => {
   const theme = useTheme();
