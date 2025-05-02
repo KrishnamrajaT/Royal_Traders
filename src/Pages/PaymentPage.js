@@ -19,11 +19,11 @@ const PaymentModal = ({ open, onClose, amount = 5999 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [copied, setCopied] = useState(false);
-  const [step, setStep] = useState("payment"); // payment -> confirmation
+  const [step, setStep] = useState("payment");
 
   // UPI Details
   const upiId = "royal82975669@barodampay";
-  const whatsappNumber = "6281154811";
+  const whatsappNumber = "8886184253";
   const paymentLink = `upi://pay?pa=${upiId}&am=${amount}&tn=PremiumGroupPayment`;
 
   const handleCopy = () => {
@@ -49,14 +49,14 @@ const PaymentModal = ({ open, onClose, amount = 5999 }) => {
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: { xs: "95%", sm: 400 },
-          maxWidth: "calc(100vw - 32px)",
-          maxHeight: "calc(100vh - 32px)",
+          width: { xs: "85%", sm: 400 }, // Reduced from 90% to 88% for mobile
+          maxWidth: "calc(100vw - 24px)", // Reduced from 32px to 24px
+          maxHeight: "calc(100vh - 24px)",
           overflow: "auto",
           bgcolor: "rgba(15, 23, 42, 0.9)",
           boxShadow:
             "0 0 0 1px rgba(148, 163, 184, 0.1), 0 10px 20px -5px rgba(0, 0, 0, 0.4)",
-          p: isMobile ? 2 : 3,
+          p: isMobile ? 1.5 : 3, // Reduced padding for mobile
           borderRadius: "16px",
           border: "1px solid rgba(255, 255, 255, 0.1)",
           backdropFilter: "blur(16px)",
@@ -86,13 +86,16 @@ const PaymentModal = ({ open, onClose, amount = 5999 }) => {
         />
 
         <IconButton
-          onClick={onClose}
+          onClick={() => {
+            onClose();
+            setStep("payment");
+          }}
           sx={{
             position: "absolute",
             top: 8,
             right: 8,
             color: "#E2E8F0",
-            [theme.breakpoints.down("sm")]: { top: 4, right: 4 },
+            [theme.breakpoints.down("sm")]: { top: 6, right: 6 },
           }}
           size={isMobile ? "small" : "medium"}
         >
@@ -106,12 +109,15 @@ const PaymentModal = ({ open, onClose, amount = 5999 }) => {
               color="#FFFFFF"
               gutterBottom
               textAlign="center"
-              sx={{ pt: isMobile ? 1 : 0 }}
+              sx={{
+                pt: isMobile ? 0.5 : 0,
+                fontSize: isMobile ? "1.1rem" : null,
+              }}
             >
               Pay ₹{amount} to Join Premium
             </Typography>
 
-            <Box sx={{ textAlign: "center", my: isMobile ? 2 : 3 }}>
+            <Box sx={{ textAlign: "center", my: isMobile ? 1.5 : 3 }}>
               <Box
                 sx={{
                   p: isMobile ? 1 : 2,
@@ -122,7 +128,7 @@ const PaymentModal = ({ open, onClose, amount = 5999 }) => {
               >
                 <QRCode
                   value={paymentLink}
-                  size={isMobile ? 140 : 160}
+                  size={isMobile ? 130 : 160} // Slightly smaller QR on mobile
                   fgColor="#1E40AF"
                 />
               </Box>
@@ -130,20 +136,26 @@ const PaymentModal = ({ open, onClose, amount = 5999 }) => {
                 variant="body2"
                 color="#94A3B8"
                 mt={1}
-                sx={{ fontSize: isMobile ? "0.875rem" : "1rem" }}
+                sx={{ fontSize: isMobile ? "0.8rem" : "1rem" }} // Smaller font
               >
                 Scan with any UPI app
               </Typography>
             </Box>
 
-            <Divider sx={{ borderColor: "rgba(255,255,255,0.1)", my: 2 }} />
+            <Divider
+              sx={{
+                borderColor: "rgba(255,255,255,0.1)",
+                my: isMobile ? 1.5 : 2,
+                mx: isMobile ? -1.5 : -3, // Adjusted negative margin
+              }}
+            />
 
-            <Box sx={{ mb: isMobile ? 2 : 3 }}>
+            <Box sx={{ mb: isMobile ? 1.5 : 3 }}>
               <Typography
                 variant="subtitle2"
                 color="#E2E8F0"
                 gutterBottom
-                sx={{ fontSize: isMobile ? "0.875rem" : "1rem" }}
+                sx={{ fontSize: isMobile ? "0.8rem" : "1rem" }}
               >
                 Or send payment to:
               </Typography>
@@ -162,7 +174,7 @@ const PaymentModal = ({ open, onClose, amount = 5999 }) => {
                     flexGrow: 1,
                     fontFamily: "monospace",
                     color: "#E2E8F0",
-                    fontSize: isMobile ? "0.875rem" : "1rem",
+                    fontSize: isMobile ? "0.75rem" : "1rem", // Smaller UPI ID text
                     wordBreak: "break-all",
                   }}
                 >
@@ -171,7 +183,7 @@ const PaymentModal = ({ open, onClose, amount = 5999 }) => {
                 <IconButton
                   onClick={handleCopy}
                   size={isMobile ? "small" : "medium"}
-                  sx={{ color: "#3B82F6", ml: 1 }}
+                  sx={{ color: "#3B82F6", ml: 0.5 }} // Reduced margin
                 >
                   <ContentCopyIcon fontSize={isMobile ? "small" : "medium"} />
                 </IconButton>
@@ -181,10 +193,11 @@ const PaymentModal = ({ open, onClose, amount = 5999 }) => {
                   label="Copied!"
                   size="small"
                   sx={{
-                    mt: 1,
+                    mt: 0.5, // Reduced margin
                     bgcolor: "#3B82F6",
                     color: "white",
-                    fontSize: "0.75rem",
+                    fontSize: "0.7rem", // Smaller chip text
+                    height: "24px", // Smaller chip
                   }}
                 />
               )}
@@ -193,15 +206,18 @@ const PaymentModal = ({ open, onClose, amount = 5999 }) => {
             <Button
               fullWidth
               variant="contained"
-              startIcon={<WhatsAppIcon />}
+              startIcon={
+                <WhatsAppIcon sx={{ fontSize: isMobile ? "1rem" : null }} />
+              }
               onClick={openWhatsApp}
               size={isMobile ? "medium" : "large"}
               sx={{
                 background: "#25D366",
                 color: "white",
                 "&:hover": { background: "#128C7E" },
-                fontSize: isMobile ? "0.875rem" : "1rem",
-                py: isMobile ? 1 : 1.5,
+                fontSize: isMobile ? "0.8rem" : "1rem", // Smaller button text
+                py: isMobile ? 0.8 : 1.5, // Adjusted padding
+                minHeight: isMobile ? "40px" : "48px", // Consistent button height
               }}
             >
               {isMobile
@@ -215,24 +231,26 @@ const PaymentModal = ({ open, onClose, amount = 5999 }) => {
           <Box textAlign="center" sx={{ p: isMobile ? 1 : 2 }}>
             <WhatsAppIcon
               sx={{
-                fontSize: isMobile ? 48 : 60,
+                fontSize: isMobile ? 40 : 60,
                 color: "#25D366",
-                mb: 2,
+                mb: isMobile ? 1 : 2,
               }}
             />
             <Typography
               variant={isMobile ? "h6" : "h5"}
               color="#FFFFFF"
               gutterBottom
+              sx={{ fontSize: isMobile ? "1.1rem" : null }}
             >
-              Thanks for your Inputs!
+              Thanks for your Info!
             </Typography>
             <Typography
               color="#94A3B8"
               sx={{
-                mb: 3,
-                fontSize: isMobile ? "0.875rem" : "1rem",
-                lineHeight: 1.6,
+                mb: isMobile ? 2 : 3,
+                fontSize: isMobile ? "0.8rem" : "1rem",
+                lineHeight: 1.5,
+                px: isMobile ? 0.5 : 0,
               }}
             >
               You'll be added to the premium group shortly after verification.
@@ -251,8 +269,9 @@ const PaymentModal = ({ open, onClose, amount = 5999 }) => {
                   background:
                     "linear-gradient(45deg, #1E40AF 0%, #2563EB 100%)",
                 },
-                fontSize: isMobile ? "0.875rem" : "1rem",
-                py: isMobile ? 1 : 1.5,
+                fontSize: isMobile ? "0.8rem" : "1rem",
+                py: isMobile ? 0.8 : 1.5,
+                minHeight: isMobile ? "40px" : "48px",
               }}
             >
               Close

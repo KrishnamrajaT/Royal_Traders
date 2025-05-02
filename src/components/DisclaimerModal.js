@@ -137,8 +137,8 @@ const DisclaimerForm = ({ open, onClose, onPaymentInitiated }) => {
           <Box
             textAlign="end"
             position="absolute"
-            top={8}
-            right={8}
+            top={15}
+            right={15}
             sx={{ cursor: "pointer" }}
           >
             <CloseRoundedIcon
