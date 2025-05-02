@@ -33,31 +33,20 @@ const PaymentModal = ({ open, onClose, amount = 5999 }) => {
   };
 
   const openWhatsApp = () => {
-    const message = `Payment Confirmation\n\n• Amount: ₹${amount}\n• UPI ID: ${upiId}\n• Screenshot attached below`;
+    const message = `Payment Confirmation\n\n• Amount: ₹${amount}\n• UPI ID: ${upiId}`;
     
-    // iOS requires special handling
     if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-      // Step 1: Open WhatsApp without message (iOS security workaround)
-      window.location.href = `whatsapp://send?phone=${whatsappNumber}`;
+      // iOS fallback - open with generic message
+      window.location.href = `whatsapp://send?text=${encodeURIComponent(message)}&phone=${whatsappNumber}`;
       
-      // Step 2: After delay, try to inject message
+      // Backup - regular web URL if native fails
       setTimeout(() => {
-        const input = document.querySelector('div[contenteditable="true"]');
-        if (input) {
-          input.textContent = message;
-          
-          // Trigger input event for WhatsApp web
-          const event = new Event('input', { bubbles: true });
-          input.dispatchEvent(event);
-        }
-      }, 1000);
-    } 
+        window.open(`https://wa.me/${whatsappNumber}`, '_blank');
+      }, 500);
+    }
     else {
-      // Standard Android/Desktop behavior
       window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
     }
-  
-    setStep("confirmation");
   };
 
   return (
