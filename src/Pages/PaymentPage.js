@@ -33,11 +33,22 @@ const PaymentModal = ({ open, onClose, amount = 5999 }) => {
   };
 
   const openWhatsApp = () => {
-    const message = `I've paid ₹${amount} for premium access. Here's my payment screenshot:\n\nUPI ID: ${upiId}\nAmount: ₹${amount}`;
-    window.open(
-      `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`,
-      "_blank"
-    );
+    const message = `Payment Confirmation\n\n• Amount: ₹${amount}\n• UPI ID: ${upiId}\n• Screenshot attached below`;
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+      message
+    )}`;
+
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+    if (isIOS) {
+      window.open(`https://wa.me/${whatsappNumber}`, "_blank");
+      setTimeout(() => {
+        window.location.href = whatsappUrl;
+      }, 500);
+    } else {
+      window.open(whatsappUrl, "_blank");
+    }
+
     setStep("confirmation");
   };
 
