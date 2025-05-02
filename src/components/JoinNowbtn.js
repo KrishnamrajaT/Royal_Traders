@@ -62,7 +62,6 @@ export default function JoinNowButton() {
       </ShimmerButton>
       <DisclaimerForm
         open={isModalOpen}
-        setIsOpenPaymentModal={setIsOpenPaymentModal}
         onClose={() => setIsModalOpen(false)}
         onPaymentInitiated={() => {
           console.log("Payment initiated!");
