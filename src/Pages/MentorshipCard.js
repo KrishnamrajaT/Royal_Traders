@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import DisclaimerForm from "../components/DisclaimerModal";
+import PaymentModal from "../Pages/PaymentPage";
 import "./MentorShipCard.css";
 
 function MentorshipCard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+   const [isOpenPaymentModal, setIsOpenPaymentModal] = useState(false);
   return (
     <div className="mentorship-card">
       <div className="card-glow"></div>
@@ -100,13 +102,19 @@ function MentorshipCard() {
           effort.
         </div>
         <DisclaimerForm
-          open={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          onPaymentInitiated={() => {
-            console.log("Payment initiated!");
-            setIsModalOpen(false);
-          }}
-        />
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onPaymentInitiated={() => {
+          console.log("Payment initiated!");
+          setIsModalOpen(false);
+          setIsOpenPaymentModal(true);
+        }}
+      />
+      <PaymentModal
+        onClose={() => setIsOpenPaymentModal(false)}
+        open={isOpenPaymentModal}
+      />
+
       </div>
     </div>
   );
