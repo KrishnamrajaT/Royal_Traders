@@ -35,7 +35,7 @@ const PaymentModal = ({ open, onClose, amount = 5999 }) => {
   const openWhatsApp = () => {
     const message = `I've paid ₹${amount} for premium access. Here's my payment screenshot:\n\nUPI ID: ${upiId}\nAmount: ₹${amount}`;
     window.open(
-      `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`,
+      `https://wa.me/${whatsappNumber}`,
       "_blank"
     );
     setStep("confirmation");
