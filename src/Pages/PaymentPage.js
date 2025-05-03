@@ -33,22 +33,14 @@ const PaymentModal = ({ open, onClose, amount = 5999 }) => {
   };
 
   const openWhatsApp = () => {
-    const message = `Payment Confirmation\n\n• Amount: ₹${amount}\n• UPI ID: ${upiId}`;
+    const message = `Paid ${amount} to ${upiId}`;
     const encodedMessage = encodeURIComponent(message);
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-  
-    // For iOS - Progressive enhancement approach
-    if (isIOS) {
-      // Copy message to clipboard as fallback
-      navigator.clipboard.writeText(message);
-      alert('Please paste this in WhatsApp:\n\n' + message);
-      window.open(`https://wa.me/${whatsappNumber}`, '_blank');
-    } 
-    // Android/Desktop
-    else {
-      window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
-    }
-  
+
+    window.open(
+      `https://wa.me/${whatsappNumber}?text=${encodedMessage}`,
+      "_blank"
+    );
+
     setStep("confirmation");
   };
 
