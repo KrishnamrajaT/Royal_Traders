@@ -39,22 +39,10 @@ const PaymentModal = ({ open, onClose, amount = 5999 }) => {
   
     // For iOS - Progressive enhancement approach
     if (isIOS) {
-      // Attempt 1: Native app with hidden iframe trick
-      const iframe = document.createElement('iframe');
-      iframe.style.display = 'none';
-      iframe.src = `whatsapp://send?text=${encodedMessage}&phone=${whatsappNumber}`;
-      document.body.appendChild(iframe);
-      
-      setTimeout(() => {
-        // Attempt 2: Web WhatsApp if native fails
-        document.body.removeChild(iframe);
-        window.open(`https://web.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`, '_blank');
-        
-        setTimeout(() => {
-          // Final fallback: Basic chat
-          window.open(`https://wa.me/${whatsappNumber}`, '_blank');
-        }, 1000);
-      }, 300);
+      // Copy message to clipboard as fallback
+      navigator.clipboard.writeText(message);
+      alert('Please paste this in WhatsApp:\n\n' + message);
+      window.open(`https://wa.me/${whatsappNumber}`, '_blank');
     } 
     // Android/Desktop
     else {
