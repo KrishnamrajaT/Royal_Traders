@@ -33,6 +33,7 @@ function Header() {
             sx={{
               display: { xs: "none", md: "flex" },
               fontWeight: 700,
+              justifyContent:"center",
               color: "#F0F0F0",
               textDecoration: "none",
               fontSize: "30px",
@@ -42,7 +43,6 @@ function Header() {
             Royal Traders
           </Typography>
 
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -51,6 +51,7 @@ function Header() {
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
+              justifyContent:"center",
               fontSize: "25px",
               letterSpacing: "3px",
               flexGrow: 1,
