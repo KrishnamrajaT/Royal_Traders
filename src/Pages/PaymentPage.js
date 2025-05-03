@@ -33,33 +33,31 @@ const PaymentModal = ({ open, onClose, amount = 5999 }) => {
   };
 
   const openWhatsApp = () => {
-    const message = `Payment Confirmation\n\n• Amount: ₹${amount}\n• UPI ID: ${upiId}`;
-    const encodedMessage = encodeURIComponent(message);
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-  
-    // For iOS devices
-    if (isIOS) {
-      // Attempt 1: Trigger native app with hidden iframe
-      const iframe = document.createElement('iframe');
-      iframe.style.display = 'none';
-      iframe.src = `whatsapp://send?text=${encodedMessage}&phone=${whatsappNumber}`;
-      document.body.appendChild(iframe);
+    const message = `Payment Confirmation\n\n• Amount: ₹${amount}\n• UPI ID: ${upiId}\n• Screenshot attached below`;
+    
+    // iOS requires special handling
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+      // Step 1: Open WhatsApp without message (iOS security workaround)
+      window.location.href = `whatsapp://send?phone=${whatsappNumber}`;
       
-      // Fallback 1: After delay, try web version
+      // Step 2: After delay, try to inject message
       setTimeout(() => {
-        document.body.removeChild(iframe);
-        window.open(`https://web.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`, '_blank');
-        
-        // Fallback 2: If web version fails, open generic chat
-        setTimeout(() => {
-          window.open(`https://wa.me/${whatsappNumber}`, '_blank');
-        }, 1000);
-      }, 300);
-    }
-    // For Android/Desktop
+        const input = document.querySelector('div[contenteditable="true"]');
+        if (input) {
+          input.textContent = message;
+          
+          // Trigger input event for WhatsApp web
+          const event = new Event('input', { bubbles: true });
+          input.dispatchEvent(event);
+        }
+      }, 1000);
+    } 
     else {
-      window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
+      // Standard Android/Desktop behavior
+      window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
     }
+  
+    setStep("confirmation");
   };
 
   return (
