@@ -195,7 +195,7 @@ const DisclaimerForm = ({ open, onClose, onPaymentInitiated }) => {
               {
                 name: "noGuarantees",
                 label:
-                  "I will not expect guaranteed profits or signals account handling.",
+                  "I will not expect guaranteed profits or signals or account handling.",
               },
               {
                 name: "paperTrading",
