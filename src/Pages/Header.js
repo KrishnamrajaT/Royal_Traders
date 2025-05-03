@@ -24,13 +24,7 @@ function Header() {
     <AppBar position="sticky" sx={{ backgroundColor: "#1E1E1E" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon
-            sx={{
-              display: { xs: "none", md: "flex" },
-              mr: 1,
-              color: "#F0F0F0",
-            }}
-          />
+         
           <Typography
             variant="h6"
             noWrap

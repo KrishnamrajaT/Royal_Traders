@@ -3,6 +3,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
+import main_log from "../Assets/mainLogo.jpeg"
 import "./Footer.css";
 
 const Footer = () => {
@@ -11,8 +12,7 @@ const Footer = () => {
       <div className="footer-container">
         <div className="footer-section">
           <div className="logo-section">
-            <div className="logo">LOGO</div>
-            <div className="slogan">Royal Traders</div>
+            <img src={main_log} width={"250px"} height={"300vh"}/>
           </div>
         </div>
 
