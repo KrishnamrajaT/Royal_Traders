@@ -34,18 +34,29 @@ const PaymentModal = ({ open, onClose, amount = 5999 }) => {
 
   const openWhatsApp = () => {
     const message = `Payment Confirmation\n\n• Amount: ₹${amount}\n• UPI ID: ${upiId}`;
-    
-    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-      // iOS fallback - open with generic message
-      window.location.href = `whatsapp://send?text=${encodeURIComponent(message)}&phone=${whatsappNumber}`;
+    const encodedMessage = encodeURIComponent(message);
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  
+    // iOS Devices
+    if (isIOS) {
+      // Attempt 1: Native WhatsApp app with pre-filled message
+      window.location.href = `whatsapp://send?text=${encodedMessage}&abid=${whatsappNumber}`;
       
-      // Backup - regular web URL if native fails
+      // Fallback 1: If native fails, try web WhatsApp after delay
       setTimeout(() => {
-        window.open(`https://wa.me/${whatsappNumber}`, '_blank');
-      }, 500);
+        // Attempt 2: Web WhatsApp with message
+        const webUrl = `https://web.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
+        window.open(webUrl, '_blank');
+        
+        // Fallback 2: If all fails, open plain chat
+        setTimeout(() => {
+          window.open(`https://wa.me/${whatsappNumber}`, '_blank');
+        }, 1000);
+      }, 300);
     }
+    // Android/Desktop
     else {
-      window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
+      window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
     }
   };
 
