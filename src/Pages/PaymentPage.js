@@ -33,7 +33,7 @@ const PaymentModal = ({ open, onClose, amount = 5999 }) => {
   };
 
   const openWhatsApp = () => {
-    const text = `Payment Confirmation\n\n• Amount: ₹${amount}\n• UPI ID: ${upiId}`;
+    const text = `Payment Confirmation• Amount: ₹${amount}• UPI ID: ${upiId}`;
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     
     if (isIOS) {
