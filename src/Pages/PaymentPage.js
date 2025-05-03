@@ -23,7 +23,7 @@ const PaymentModal = ({ open, onClose, amount = 5999 }) => {
 
   // UPI Details
   const upiId = "royal82975669@barodampay";
-  const whatsappNumber = "8886184253";
+  const whatsappNumber = "+919876543210";
   const paymentLink = `upi://pay?pa=${upiId}&am=${amount}&tn=PremiumGroupPayment`;
 
   const handleCopy = () => {
