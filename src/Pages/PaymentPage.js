@@ -33,24 +33,23 @@ const PaymentModal = ({ open, onClose, amount = 5999 }) => {
   };
 
   const openWhatsApp = () => {
-    const text = `Payment Confirmation• Amount: ₹${amount}• UPI ID: ${upiId}`;
+    const message = `Payment Confirmation\n\n• Amount: ₹${amount}\n• UPI ID: ${upiId}\n• Screenshot attached below`;
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+      message
+    )}`;
+
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    
+
     if (isIOS) {
-      // Create a temporary link click (better iOS handling)
-      const link = document.createElement('a');
-      link.href = `whatsapp://send?text=${encodeURIComponent(text)}&phone=${whatsappNumber}`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      
+      window.open(`https://wa.me/${whatsappNumber}`, "_blank");
       setTimeout(() => {
-        window.location.href = `https://wa.me/${whatsappNumber}`;
+        window.location.href = whatsappUrl;
       }, 500);
+    } else {
+      window.open(whatsappUrl, "_blank");
     }
-    else {
-      window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`);
-    }
+
+    setStep("confirmation");
   };
 
   return (
