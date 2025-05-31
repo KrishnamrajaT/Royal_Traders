@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Button } from "@mui/material";
 import { styled, keyframes } from "@mui/system";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
-import DisclaimerForm from "./DisclaimerModal";
 import PaymentModal from "../Pages/PaymentPage";
 
 const goldenShimmer = keyframes`
@@ -48,27 +47,18 @@ const ShimmerButton = styled(Button)({
 });
 
 export default function JoinNowButton() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isOpenPaymentModal, setIsOpenPaymentModal] = useState(false);
 
   return (
     <>
       <ShimmerButton
-        onClick={() => setIsModalOpen(true)}
+        onClick={() => setIsOpenPaymentModal(true)}
         startIcon={<RocketLaunchIcon />}
         variant="contained"
       >
         Join Now
       </ShimmerButton>
-      <DisclaimerForm
-        open={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onPaymentInitiated={() => {
-          console.log("Payment initiated!");
-          setIsModalOpen(false);
-          setIsOpenPaymentModal(true);
-        }}
-      />
+      
       <PaymentModal
         onClose={() => setIsOpenPaymentModal(false)}
         open={isOpenPaymentModal}

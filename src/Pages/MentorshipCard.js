@@ -83,11 +83,11 @@ function MentorshipCard() {
 
         <div className="cta-section">
           <div className="price-tag">
-            <span className="price">6000/-</span>
+            <span className="price">5,999/-</span>
             <span className="duration">for 3 Months</span>
           </div>
           <button
-            onClick={() => setIsModalOpen(true)}
+            onClick={() =>setIsOpenPaymentModal(true)}
             className="enroll-button"
           >
             Join Program Now
