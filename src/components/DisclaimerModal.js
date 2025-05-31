@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Modal,
   Fade,
@@ -110,7 +110,7 @@ const GoogleCheckboxItem = styled(FormControlLabel)(({ theme }) => ({
     [theme.breakpoints.down("sm")]: {
       fontSize: "0.85rem",
       lineHeight: "1.3",
-      marginBottom:"13px"
+      marginBottom: "13px",
     },
   },
 }));
@@ -172,33 +172,50 @@ const DisclaimerForm = ({ open, onClose, onPaymentInitiated }) => {
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const [checkedItems, setCheckedItems] = useState({
-    educational: false,
-    noGuarantees: false,
-    paperTrading: false,
-    acceptRisk: false,
-    agreeTerms: false,
-    googleForm: false,
+  const [formValues, setFormValues] = useState(() => {
+    const saved = localStorage.getItem("disclaimerFormValues");
+    return saved
+      ? JSON.parse(saved)
+      : {
+          name: "",
+          email: "",
+          mobile: "",
+        };
+  });
+  const [checkedItems, setCheckedItems] = useState(() => {
+    const saved = localStorage.getItem("disclaimerFormState");
+    return saved
+      ? JSON.parse(saved)
+      : {
+          educational: false,
+          noGuarantees: false,
+          paperTrading: false,
+          acceptRisk: false,
+          agreeTerms: false,
+          googleForm: false,
+        };
   });
   const [step, setStep] = useState("payment");
   const [googleFormSubmitted, setGoogleFormSubmitted] = useState(false);
 
   const upiId = "charantejjjj77-2@okicici"; // Replace with actual UPI ID
   const amount = "5,999"; // Replace with actual amount
-
+  useEffect(() => {
+    localStorage.setItem("disclaimerFormState", JSON.stringify(checkedItems));
+    localStorage.setItem("disclaimerFormValues", JSON.stringify(formValues));
+  }, [checkedItems, formValues]);
   const formik = useFormik({
-    initialValues: {
-      name: "",
-      email: "",
-      mobile: "",
-    },
+    initialValues: formValues,
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      setStep("");
       if (allChecked) {
-        openWhatsApp(values); // Call WhatsApp function with form values
+        setStep("");
+        localStorage.removeItem("pageState");
+
+        openWhatsApp(values);
       }
     },
+    enableReinitialize: true, // Allow form to reinitialize when initialValues change
   });
 
   const allChecked = Object.values(checkedItems).every(Boolean);
@@ -210,13 +227,25 @@ const DisclaimerForm = ({ open, onClose, onPaymentInitiated }) => {
     });
   };
 
-  const handleGoogleFormChange=(event)=>{
+  const handleGoogleFormChange = (event) => {
     setCheckedItems({
       ...checkedItems,
-      googleForm:event.target.checked
+      googleForm: event.target.checked,
     });
-  }
+  };
   const openGoogleForm = () => {
+    // Save current state before opening the form
+    const formState = {
+      formValues: formik.values,
+      checkedItems,
+      googleFormSubmitted: true,
+    };
+    localStorage.setItem(
+      "disclaimerFormBeforeGoogle",
+      JSON.stringify(formState)
+    );
+    localStorage.setItem("pageState", true);
+
     window.open(googleFormUrl, "_blank");
     setGoogleFormSubmitted(true);
   };
@@ -239,10 +268,24 @@ const DisclaimerForm = ({ open, onClose, onPaymentInitiated }) => {
       "_blank"
     );
   };
+  useEffect(() => {
+    setFormValues(formik.values);
+  }, [formik.values]);
+  useEffect(() => {
+    const savedState = localStorage.getItem("disclaimerFormBeforeGoogle");
+    if (savedState) {
+      const { formValues, checkedItems, googleFormSubmitted } =
+        JSON.parse(savedState);
+      setFormValues(formValues);
+      setCheckedItems(checkedItems);
+      setGoogleFormSubmitted(googleFormSubmitted);
+      localStorage.removeItem("disclaimerFormBeforeGoogle");
+    }
+  }, []);
 
   return (
     <Modal
-      open={open}
+      open={localStorage.getItem("pageState") || open}
       onClose={onClose}
       closeAfterTransition
       BackdropProps={{
