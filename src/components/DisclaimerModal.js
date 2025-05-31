@@ -18,6 +18,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import DescriptionIcon from "@mui/icons-material/Description";
+import { color } from "framer-motion";
 // Form validation schema
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -116,6 +117,13 @@ const GoogleCheckboxItem = styled(FormControlLabel)(({ theme }) => ({
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   "& .MuiOutlinedInput-root": {
+    color: "#3B82F6", // Text color for input value
+    "& input": {
+      color: "#3B82F6", // Explicitly set input text color
+    },
+    "& textarea": {
+      color: "#3B82F6", // For multiline inputs
+    },
     "& fieldset": {
       borderColor: "#3B82F6",
     },
@@ -125,9 +133,15 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
     "&.Mui-focused fieldset": {
       borderColor: "#3B82F6",
     },
+    "&.Mui-focused .MuiOutlinedInput-input": {
+      color: "#3B82F6", // Focused state text color
+    },
   },
   "& .MuiInputLabel-root": {
     color: "#3B82F6",
+    "&.Mui-focused": {
+      color: "#3B82F6", // Focused label color
+    },
   },
   "& .MuiFormHelperText-root": {
     color: "#F87171",
