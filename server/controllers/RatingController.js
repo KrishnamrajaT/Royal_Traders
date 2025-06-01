@@ -23,7 +23,7 @@ const AddRating = async (req, res) => {
 // Get all ratings
 const GetAllRatings = async (req, res) => {
   try {
-    const ratings = await addRating.limit(100).lean() // This gets all documents in the Rating collection
+    const ratings = await addRating.lean() // This gets all documents in the Rating collection
     res.status(200).json(ratings);
   } catch (error) {
     console.error(error);

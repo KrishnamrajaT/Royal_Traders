@@ -24,7 +24,7 @@ const registerUser = async (req, res) => {
 // Get all users
 const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find().limit(100).lean()
+    const users = await User.find().lean()
     res.status(200).json(users);
   } catch (error) {
     console.error(error);
