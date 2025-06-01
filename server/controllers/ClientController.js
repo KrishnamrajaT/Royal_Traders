@@ -1,24 +1,20 @@
-const User = require("../models/Users");
+const User = require("../models/Client");
 // const bcrypt = require("bcryptjs");
 // const jsonWebToken = require("jsonwebtoken");
 
 //Registre User
 const registerUser = async (req, res) => {
-  const { username, email, city } = req.body;
+  const { name, email, mobile } = req.body;
 
   try {
-    const userEmail = await User.findOne({ email });
-    if (userEmail) {
-      return res.status(400).json("Email already taken");
-    }
     const newUser = new User({
-      username,
+      name,
       email,
-      city,
+      mobile,
     });
     await newUser.save();
-    res.status(201).json({ message: "user created Succesfully" });
-    console.log("created");
+    res.status(201).json({ message: "Client Saved Succesfully" });
+    console.log("saved");
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal Server Error" });
@@ -53,16 +49,16 @@ const getUserById = async (req, res) => {
 // Edit user
 const editUser = async (req, res) => {
   try {
-    const { username, email, city } = req.body;
+    const { name, email, mobile } = req.body;
     const user = await User.findByIdAndUpdate(
       req.params.id,
-      { username, email, city },
+      { name, email, mobile },
       { new: true }
     );
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "Client not found" });
     }
-    res.status(200).json({ message: "User updated successfully", user });
+    res.status(200).json({ message: "Client updated successfully", user });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal Server Error" });
@@ -73,9 +69,9 @@ const deleteUser = async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "Client not found" });
     }
-    res.status(200).json({ message: "User deleted successfully" });
+    res.status(200).json({ message: "Client deleted successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal Server Error" });

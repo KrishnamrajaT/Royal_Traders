@@ -2,7 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const userRoutes = require("./routes/UsersRoutes");
+const clientRoutes = require("./routes/ClientRoutes");
+const ratingRoutes = require("./routes/RatingRoutes");
 
 const app = express();
 
@@ -13,11 +14,9 @@ mongoose
 
 app.use(bodyParser.json());
 app.use(cors())
-// app.get("/", (req, res) => {
-//   res.send("Get Method");
-// });
 
-app.use("/user", userRoutes);
+app.use("/client", clientRoutes);
+app.use("/rating", ratingRoutes);
 
 const PORT = 8080;
 app.listen(PORT, () => {
