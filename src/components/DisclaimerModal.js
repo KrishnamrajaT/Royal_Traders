@@ -211,6 +211,8 @@ const DisclaimerForm = ({ open, onClose, onPaymentInitiated }) => {
       if (allChecked) {
         setStep("");
         localStorage.removeItem("pageState");
+        localStorage.removeItem("disclaimerFormState");
+        localStorage.removeItem("disclaimerFormValues");
 
         openWhatsApp(values);
       }

@@ -3,7 +3,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
-import main_log from "../Assets/mainLogo.jpeg"
+import main_log from "../Assets/mainLogo.jpeg";
 import "./Footer.css";
 
 const Footer = () => {
@@ -12,10 +12,17 @@ const Footer = () => {
       <div className="footer-container">
         <div className="footer-section">
           <div className="logo-section">
-            <img src={main_log} width={"250px"} height={"300vh"}/>
+            <img src={main_log} width={"250px"} height={"300vh"} />
           </div>
         </div>
 
+        <div className="footer-section">
+          <h4>REVIEWS</h4>
+          <ul>
+            <li className="services">Rating</li>
+            <li className="services">Profits</li>
+          </ul>
+        </div>
         <div className="footer-section">
           <h4>SERVICES</h4>
           <ul>
@@ -29,7 +36,7 @@ const Footer = () => {
           <ul>
             <li>
               <a
-              className="anchor"
+                className="anchor"
                 href="https://wa.me/8886184253"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -39,7 +46,7 @@ const Footer = () => {
             </li>
             <li>
               <a
-              className="anchor"
+                className="anchor"
                 href="mailto:royaltradercherry@gmail.com"
                 target="_blank"
                 rel="noopener noreferrer"

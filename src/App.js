@@ -4,16 +4,32 @@ import AutoCarousel from "./Pages/Carousel";
 import Cards from "./Pages/cards";
 import MentorshipCard from "./Pages/MentorshipCard";
 import Chatbox from "./ChatBox";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ReviewPage from "./Pages/ReviewPage";
 function App() {
 
 
-  return (
-    <Layout>
-      <AutoCarousel />
-      <Chatbox/>
-      <MentorshipCard />
-      <Cards />
-    </Layout>
+    return (
+    <Router>
+      <Routes>
+        {/* Index route - displays all components within Layout */}
+        <Route path="/" element={
+          <Layout>
+            <AutoCarousel />
+            <Chatbox />
+            <MentorshipCard />
+            <Cards />
+          </Layout>
+        } />
+        
+        {/* Review page route - also within Layout */}
+        <Route path="/review" element={
+          <Layout>
+            <ReviewPage />
+          </Layout>
+        } />
+      </Routes>
+    </Router>
   );
 }
 
