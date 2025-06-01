@@ -5,14 +5,13 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
-import AdbIcon from "@mui/icons-material/Adb";
 import JoinNowButton from "../components/JoinNowbtn";
-import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-const pages = ["Home","Reviews"];
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import { Link } from "react-router-dom";
+const pages = ["Home", "Reviews"];
 
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -24,12 +23,15 @@ function Header() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+  const pageRoutes = {
+    Home: "/",
+    Reviews: "/review",
+  };
 
   return (
     <AppBar position="sticky" sx={{ backgroundColor: "#1E1E1E" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-         
           <Typography
             variant="h6"
             noWrap
@@ -38,7 +40,7 @@ function Header() {
             sx={{
               display: { xs: "none", md: "flex" },
               fontWeight: 700,
-              justifyContent:"center",
+              justifyContent: "center",
               color: "#F0F0F0",
               textDecoration: "none",
               fontSize: "30px",
@@ -47,7 +49,7 @@ function Header() {
           >
             Royal Traders
           </Typography>
-           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -62,21 +64,30 @@ function Header() {
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
+                vertical: "bottom",
+                horizontal: "left",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
+                vertical: "top",
+                horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
-              sx={{ display: { xs: 'block', md: 'none' } }}
+              sx={{ display: { xs: "block", md: "none" } }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
+                <MenuItem
+                  key={page}
+                  component={Link}
+                  to={pageRoutes[page]}
+                  onClick={handleCloseNavMenu}
+                  sx={{
+                    textDecoration: "none", // Remove underline
+                    color: "inherit", // Inherit text color
+                  }}
+                >
+                  <Typography sx={{ textAlign: "center" }}>{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -90,7 +101,7 @@ function Header() {
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
-              justifyContent:"center",
+              justifyContent: "center",
               fontSize: "25px",
               letterSpacing: "3px",
               flexGrow: 1,
@@ -101,12 +112,18 @@ function Header() {
           >
             Royal Traders
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ marginLeft:"30px",my: 2, color: 'white', display: 'block' }}
+                component={Link}
+                to={pageRoutes[page]}
+                sx={{
+                  marginLeft: "30px",
+                  my: 2,
+                  color: "white",
+                  display: "block",
+                }}
               >
                 {page}
               </Button>

@@ -4,9 +4,13 @@ import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import main_log from "../Assets/mainLogo.jpeg";
+import { useNavigate } from "react-router-dom";
+
 import "./Footer.css";
 
 const Footer = () => {
+  const navigate = useNavigate();
+
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -17,10 +21,10 @@ const Footer = () => {
         </div>
 
         <div className="footer-section">
-          <h4>REVIEWS</h4>
+          <h4 onClick={()=>navigate("/review")}>REVIEWS</h4>
           <ul>
-            <li className="services">Rating</li>
-            <li className="services">Profits</li>
+            <li onClick={()=>navigate("/review")} className="services">Rating</li>
+            <li onClick={()=>navigate("/review")} className="services">Profits</li>
           </ul>
         </div>
         <div className="footer-section">
