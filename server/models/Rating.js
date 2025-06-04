@@ -12,7 +12,7 @@ const ratingModel = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    uniq: true,
+    unique: true,
   },
   rating: {
     type: Number,
@@ -22,8 +22,12 @@ const ratingModel = new mongoose.Schema({
     type: String,
     required: false,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now  // This will set the current date when a new rating is created
+  }
 });
 
-const RatingModel = mongoose.model("ratingModel", ratingModel);
+const RatingModel = mongoose.model("Rating", ratingModel);
 
 module.exports = RatingModel;
