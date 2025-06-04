@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Typography,
@@ -29,6 +29,7 @@ import {
   Close as CloseIcon,
 } from "@mui/icons-material";
 import ReviewForm from "./ReviewForm";
+import axios from "axios";
 
 // Styled components using the styled API
 const ReviewCard = styled(Card)(({ theme }) => ({
@@ -69,7 +70,7 @@ const ModalContent = styled(Box)(({ theme }) => ({
   position: "relative",
   outline: "none",
 }));
-const reviews = [
+const staticReviews = [
   {
     id: 1,
     name: "John D.",
@@ -181,16 +182,11 @@ const videos = [
 
 const ReviewPage = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [modalOpen, setModalOpen] = useState(false);
   const [currentVideo, setCurrentVideo] = useState("");
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    rating: "",
-    review: "",
-  });
+  const [reviews, setReviews] = useState(null);
+
   const [videosPage, setVideosPage] = useState(1);
   const videosPerPage = 3;
 
@@ -202,7 +198,7 @@ const ReviewPage = () => {
   const [reviewsPage, setReviewsPage] = useState(1);
   const reviewsPerPage = 3;
 
-  const currentReviews = reviews.slice(
+  const currentReviews = reviews?.slice(
     (reviewsPage - 1) * reviewsPerPage,
     reviewsPage * reviewsPerPage
   );
@@ -227,49 +223,19 @@ const ReviewPage = () => {
     setModalOpen(false);
     setCurrentVideo("");
   };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  let REVIEW_URL = "https://royal-traders-5euy.vercel.app/rating";
+  const fetchReviews = () => {
+    axios
+      .get(REVIEW_URL)
+      .then((res) => {
+        console.log(res.data);
+        setReviews(res.data)
+      })
+      .catch((err) => console.log(err));
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Here you would typically send the data to your backend
-    alert(
-      `Thank you for your review, ${formData.name}! Your feedback has been submitted.`
-    );
-    setFormData({
-      name: "",
-      email: "",
-      rating: "",
-      review: "",
-    });
-  };
-
-  const renderStars = (rating) => {
-    const stars = [];
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 !== 0;
-
-    for (let i = 0; i < fullStars; i++) {
-      stars.push(<StarIcon key={`full-${i}`} color="secondary" />);
-    }
-
-    if (hasHalfStar) {
-      stars.push(<StarHalfIcon key="half" color="secondary" />);
-    }
-
-    const emptyStars = 5 - stars.length;
-    for (let i = 0; i < emptyStars; i++) {
-      stars.push(<StarBorderIcon key={`empty-${i}`} color="secondary" />);
-    }
-
-    return stars;
-  };
+  useEffect(() => {
+    fetchReviews();
+  }, []);
 
   return (
     <Box>
@@ -339,7 +305,7 @@ const ReviewPage = () => {
           </Typography>
           <Box>
             <Grid container spacing={2}>
-              {currentReviews.map((review) => (
+              {currentReviews?.map((review) => (
                 <Grid item xs={12} sm={6} md={4} key={review.id}>
                   <ReviewCard>
                     <CardContent>
@@ -365,10 +331,12 @@ const ReviewPage = () => {
                         readOnly
                         sx={{
                           "& .MuiRating-iconFilled": {
-                            color: "linear-gradient(45deg, #2563eb 0%, #1e40af 100%)",
+                            color:
+                              "linear-gradient(45deg, #2563eb 0%, #1e40af 100%)",
                           },
                           "& .MuiRating-iconHover": {
-                            color: "linear-gradient(45deg, #2563eb 0%, #1e40af 100%)",
+                            color:
+                              "linear-gradient(45deg, #2563eb 0%, #1e40af 100%)",
                           },
                         }}
                       />
@@ -389,7 +357,7 @@ const ReviewPage = () => {
             {/* Add pagination controls for reviews */}
             <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
               <Pagination
-                count={Math.ceil(reviews.length / reviewsPerPage)}
+                count={Math.ceil(reviews?.length / reviewsPerPage)}
                 page={reviewsPage}
                 onChange={handleReviewsPageChange}
                 size="large"

@@ -19,6 +19,7 @@ import * as Yup from "yup";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import DescriptionIcon from "@mui/icons-material/Description";
 import { color } from "framer-motion";
+import axios from "axios"
 // Form validation schema
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -169,6 +170,7 @@ const DisclaimerForm = ({ open, onClose, onPaymentInitiated }) => {
   const whatsappNumber = "6281832839";
   const googleFormUrl =
     "https://docs.google.com/forms/d/e/1FAIpQLSeS2dqSD7hQNFiRpAH427_NA2v5H8q96vXsoVWEU8U-b_EFhQ/viewform?usp=sharing";
+  let API_Client_URL = "https://royal-traders-5euy.vercel.app/client/register";
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -204,15 +206,48 @@ const DisclaimerForm = ({ open, onClose, onPaymentInitiated }) => {
     localStorage.setItem("disclaimerFormState", JSON.stringify(checkedItems));
     localStorage.setItem("disclaimerFormValues", JSON.stringify(formValues));
   }, [checkedItems, formValues]);
+
+  const handleSaveClient = async (values) => {
+    try {
+      const response = await axios.post(`${API_Client_URL}`, {
+        name: values.name,
+        mobile: values.mobile,
+        email: values.email,
+      });
+      return response.data;
+    } catch (error) {
+      if (error.response?.status === 400) {
+        throw new Error(error.response?.data);
+      } else if (error.response?.status === 422) {
+        throw new Error(
+          "Validation failed: " + error.response.data.errors.join(", ")
+        );
+      } else {
+        throw new Error("Saving Client failed. Please try again.");
+      }
+    }
+  };
+
   const formik = useFormik({
     initialValues: formValues,
     validationSchema: validationSchema,
     onSubmit: (values) => {
       if (allChecked) {
         setStep("");
+        handleSaveClient(formValues)
+        console.log(formValues, "formValues");
         localStorage.removeItem("pageState");
         localStorage.removeItem("disclaimerFormState");
         localStorage.removeItem("disclaimerFormValues");
+        setFormValues({})
+        setCheckedItems( {
+          educational: false,
+          noGuarantees: false,
+          paperTrading: false,
+          acceptRisk: false,
+          agreeTerms: false,
+          googleForm: false,
+        })
 
         openWhatsApp(values);
       }

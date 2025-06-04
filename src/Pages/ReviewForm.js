@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
+import axios from "axios";
 
 const StyledRating = styled(Rating)({
   "& .MuiRating-iconFilled": {
@@ -30,6 +31,7 @@ const ReviewForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    mobile: "",
     rating: 0,
     review: "",
   });
@@ -50,18 +52,43 @@ const ReviewForm = () => {
       newErrors.email = "Invalid email format";
     }
     if (formData.rating === 0) newErrors.rating = "Please select a rating";
+    if (!formData.mobile.trim()) newErrors.mobile = "Mobile is required";
     if (!formData.review.trim()) newErrors.review = "Review is required";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
+  };
+  let API_RATING_URL = "https://royal-traders-5euy.vercel.app/rating";
+  const handleSaveRating = async (values) => {
+    try {
+      const response = await axios.post(`${API_RATING_URL}`, {
+        name: formData.name,
+        mobile: formData.mobile,
+        email: formData.email,
+        rating: formData.rating,
+        message: formData.review,
+      });
+      return response.data;
+    } catch (error) {
+      if (error.response?.status === 400) {
+        throw new Error(error.response?.data);
+      } else if (error.response?.status === 422) {
+        throw new Error(
+          "Validation failed: " + error.response.data.errors.join(", ")
+        );
+      } else {
+        throw new Error("Saving Review failed. Please try again.");
+      }
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
       console.log("Form submitted:", formData);
+      handleSaveRating();
       setSubmitted(true);
-      setFormData({ name: "", email: "", rating: 0, review: "" });
+      setFormData({ name: "", email: "", rating: 0, review: "", mobile:"" });
       setTimeout(() => setSubmitted(false), 3000);
     }
   };
@@ -115,6 +142,28 @@ const ReviewForm = () => {
                 onChange={handleChange}
                 error={!!errors.name}
                 helperText={errors.name}
+                variant="outlined"
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: theme.palette.primary.light,
+                    },
+                    "&:hover fieldset": {
+                      borderColor: theme.palette.primary.main,
+                    },
+                  },
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <TextField
+                fullWidth
+                label="Your Mobile"
+                name="mobile"
+                value={formData.mobile}
+                onChange={handleChange}
+                error={!!errors.mobile}
+                helperText={errors.mobile}
                 variant="outlined"
                 sx={{
                   "& .MuiOutlinedInput-root": {
