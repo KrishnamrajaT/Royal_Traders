@@ -6,6 +6,7 @@ import MentorshipCard from "./Pages/MentorshipCard";
 import Chatbox from "./ChatBox";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ReviewPage from "./Pages/ReviewPage";
+import LocationComponent from "./Pages/GetUserLocation";
 function App() {
 
 
@@ -19,6 +20,7 @@ function App() {
             <Chatbox />
             <MentorshipCard />
             <Cards />
+            <LocationComponent/>
           </Layout>
         } />
         

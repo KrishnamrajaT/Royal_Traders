@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -36,6 +36,11 @@ const ReviewForm = ({isRefresh,setIsRefresh}) => {
     review: "",
     createdAt:dayjs()
   });
+  const [location, setLocation] = useState({
+    city: '',
+    country: ''
+  });
+  const [locatioError, setLocationError] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState({});
 
@@ -68,7 +73,8 @@ const ReviewForm = ({isRefresh,setIsRefresh}) => {
         email: formData.email,
         rating: formData.rating,
         message: formData.review,
-        createdAt:dayjs().format('YYYY-MM-DD')
+        createdAt:dayjs().format('YYYY-MM-DD'),
+        address:{city:location.city,country:location.country}
       });
       setIsRefresh(!isRefresh)
       return response.data;
@@ -96,6 +102,37 @@ const ReviewForm = ({isRefresh,setIsRefresh}) => {
       setTimeout(() => setSubmitted(false), 3000);
     }
   };
+
+  useEffect(() => {
+    const fetchLocation = async () => {
+      try {
+        // Step 1: Get coordinates
+        const position = await new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        });
+
+        // Step 2: Reverse geocode to city/state
+        const { latitude, longitude } = position.coords;
+        const response = await axios.get(
+          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+        );
+
+        // Step 3: Update state
+        const { address } = response.data;
+        setLocation({
+          city: address.county,
+          country: address.country
+        });
+        console.log(address,"address")
+
+      } catch (err) {
+        setLocationError("Failed to detect location: " + err.message);
+        console.error(err);
+      }
+    };
+
+    fetchLocation();
+  }, []);
 
   return (
     <Card

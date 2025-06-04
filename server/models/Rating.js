@@ -21,10 +21,17 @@ const ratingModel = new mongoose.Schema({
     type: String,
     required: false,
   },
-   createdAt: {
-    type: String, 
-    required:false
-  }
+  createdAt: {
+    type: String,
+    required: false,
+  },
+  address: {
+    type: {
+      city: { type: String },
+      country: { type: String },
+    },
+    required: false,
+  },
 });
 
 const RatingModel = mongoose.model("Rating", ratingModel);

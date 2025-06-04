@@ -2,7 +2,7 @@ const addRating = require("../models/Rating");
 
 // Add new rating
 const AddRating = async (req, res) => {
-  const { name, mobile, email, rating, message } = req.body;
+  const { name, mobile, email, rating, message,address } = req.body;
 
   try {
     const newRating = new addRating({
@@ -11,6 +11,7 @@ const AddRating = async (req, res) => {
       email,
       rating,
       message,
+      address
     });
     await newRating.save();
     res.status(201).json({ message: "Rating Given Successfully" });
