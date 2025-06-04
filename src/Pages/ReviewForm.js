@@ -16,7 +16,7 @@ import {
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import axios from "axios";
-
+import dayjs  from "dayjs";
 const StyledRating = styled(Rating)({
   "& .MuiRating-iconFilled": {
     color: "primary",
@@ -26,7 +26,7 @@ const StyledRating = styled(Rating)({
   },
 });
 
-const ReviewForm = () => {
+const ReviewForm = ({isRefresh,setIsRefresh}) => {
   const theme = useTheme();
   const [formData, setFormData] = useState({
     name: "",
@@ -34,6 +34,7 @@ const ReviewForm = () => {
     mobile: "",
     rating: 0,
     review: "",
+    createdAt:dayjs()
   });
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState({});
@@ -67,8 +68,11 @@ const ReviewForm = () => {
         email: formData.email,
         rating: formData.rating,
         message: formData.review,
+        createdAt:dayjs().format('YYYY-MM-DD')
       });
+      setIsRefresh(!isRefresh)
       return response.data;
+
     } catch (error) {
       if (error.response?.status === 400) {
         throw new Error(error.response?.data);
@@ -88,7 +92,7 @@ const ReviewForm = () => {
       console.log("Form submitted:", formData);
       handleSaveRating();
       setSubmitted(true);
-      setFormData({ name: "", email: "", rating: 0, review: "", mobile:"" });
+      setFormData({ name: "", email: "", rating: 0, review: "", mobile:"", });
       setTimeout(() => setSubmitted(false), 3000);
     }
   };

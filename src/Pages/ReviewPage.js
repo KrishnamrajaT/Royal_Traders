@@ -30,6 +30,7 @@ import {
 } from "@mui/icons-material";
 import ReviewForm from "./ReviewForm";
 import axios from "axios";
+import dayjs from "dayjs";
 
 // Styled components using the styled API
 const ReviewCard = styled(Card)(({ theme }) => ({
@@ -186,6 +187,7 @@ const ReviewPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [currentVideo, setCurrentVideo] = useState("");
   const [reviews, setReviews] = useState(null);
+  const [isRefresh, setIsRefresh] = useState(false);
 
   const [videosPage, setVideosPage] = useState(1);
   const videosPerPage = 3;
@@ -229,13 +231,13 @@ const ReviewPage = () => {
       .get(REVIEW_URL)
       .then((res) => {
         console.log(res.data);
-        setReviews(res.data)
+        setReviews(res.data);
       })
       .catch((err) => console.log(err));
   };
   useEffect(() => {
     fetchReviews();
-  }, []);
+  }, [isRefresh]);
 
   return (
     <Box>
@@ -319,9 +321,7 @@ const ReviewPage = () => {
                           <Typography variant="subtitle1" fontWeight="bold">
                             {review.name}
                           </Typography>
-                          <Typography variant="body2" color="text.secondary">
-                            {review.date}
-                          </Typography>
+                          {dayjs(review.createdAt).format('YYYY-MM-DD')} 
                         </Box>
                       </Box>
                       <Rating
@@ -346,7 +346,7 @@ const ReviewPage = () => {
                         color="text.secondary"
                         mb={2}
                       >
-                        {review.content}
+                        {review.message}
                       </Typography>
                     </CardContent>
                   </ReviewCard>
@@ -471,7 +471,7 @@ const ReviewPage = () => {
           />
         </Box>
         {/* Testimonial Form */}
-        <ReviewForm />
+        <ReviewForm isRefresh={isRefresh} setIsRefresh={setIsRefresh}/>
       </Box>
 
       {/* Video Modal */}
