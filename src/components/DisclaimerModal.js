@@ -19,7 +19,7 @@ import * as Yup from "yup";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import DescriptionIcon from "@mui/icons-material/Description";
 import { color } from "framer-motion";
-import axios from "axios"
+import axios from "axios";
 // Form validation schema
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -184,26 +184,20 @@ const DisclaimerForm = ({ open, onClose, onPaymentInitiated }) => {
           mobile: "",
         };
   });
-  const [checkedItems, setCheckedItems] = useState(() => {
-    const saved = localStorage.getItem("disclaimerFormState");
-    return saved
-      ? JSON.parse(saved)
-      : {
-          educational: false,
-          noGuarantees: false,
-          paperTrading: false,
-          acceptRisk: false,
-          agreeTerms: false,
-          googleForm: false,
-        };
+  const [checkedItems, setCheckedItems] = useState({
+    educational: false,
+    noGuarantees: false,
+    paperTrading: false,
+    acceptRisk: false,
+    agreeTerms: false,
+    googleForm: false,
   });
   const [step, setStep] = useState("payment");
   const [googleFormSubmitted, setGoogleFormSubmitted] = useState(false);
 
-  const upiId = "charantejjjj77-2@okicici"; // Replace with actual UPI ID
+  const upiId = "royal82975669@barodampay"; // Replace with actual UPI ID
   const amount = "5,999"; // Replace with actual amount
   useEffect(() => {
-    localStorage.setItem("disclaimerFormState", JSON.stringify(checkedItems));
     localStorage.setItem("disclaimerFormValues", JSON.stringify(formValues));
   }, [checkedItems, formValues]);
 
@@ -234,20 +228,21 @@ const DisclaimerForm = ({ open, onClose, onPaymentInitiated }) => {
     onSubmit: (values) => {
       if (allChecked) {
         setStep("");
-        handleSaveClient(formValues)
+        handleSaveClient(formValues);
         console.log(formValues, "formValues");
         localStorage.removeItem("pageState");
         localStorage.removeItem("disclaimerFormState");
         localStorage.removeItem("disclaimerFormValues");
-        setFormValues({})
-        setCheckedItems( {
+        localStorage.clear();
+        setFormValues({});
+        setCheckedItems({
           educational: false,
           noGuarantees: false,
           paperTrading: false,
           acceptRisk: false,
           agreeTerms: false,
           googleForm: false,
-        })
+        });
 
         openWhatsApp(values);
       }

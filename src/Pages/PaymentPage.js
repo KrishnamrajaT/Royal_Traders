@@ -20,7 +20,7 @@ const PaymentModal = ({ open, onClose, amount = 5999 }) => {
   const [step, setStep] = useState("payment");
 
   // UPI Details
-  const upiId = "charantejjjj77-2@okicici";
+  const upiId = "royal82975669@barodampay";
   const paymentLink = `upi://pay?pa=${upiId}&am=${amount}&tn=PremiumGroupPayment`;
 
   const handleCopy = () => {
