@@ -8,16 +8,30 @@ import {
   Chip,
   useMediaQuery,
   useTheme,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormControl,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import QRCode from "react-qr-code";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import AlertProof from "./AlertProof";
-const PaymentModal = ({ open, onClose, amount = 5999 }) => {
+
+const PaymentModal = ({ open, onClose }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [copied, setCopied] = useState(false);
   const [step, setStep] = useState("payment");
+  const [selectedPlan, setSelectedPlan] = useState("12months");
+  
+  // Plan amounts
+  const planAmounts = {
+    "12months": "12,999",
+    "3months": "5,999"
+  };
+  
+  const amount = planAmounts[selectedPlan];
 
   // UPI Details
   const upiId = "royal82975669@barodampay";
@@ -29,6 +43,9 @@ const PaymentModal = ({ open, onClose, amount = 5999 }) => {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handlePlanChange = (event) => {
+    setSelectedPlan(event.target.value);
+  };
 
   return (
     <Modal open={open} onClose={onClose}>
@@ -105,6 +122,37 @@ const PaymentModal = ({ open, onClose, amount = 5999 }) => {
             >
               Pay ₹{amount} to Join Premium
             </Typography>
+
+            {/* Plan Selection Radio Buttons */}
+            <FormControl component="fieldset" sx={{ mt: 1, mb: 2, width: '100%' }}>
+              <RadioGroup
+                row
+                aria-label="plan"
+                name="plan"
+                value={selectedPlan}
+                onChange={handlePlanChange}
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  gap: 2,
+                  '& .MuiTypography-root': {
+                    color: '#E2E8F0',
+                    fontSize: isMobile ? '0.8rem' : '0.9rem'
+                  }
+                }}
+              >
+                <FormControlLabel
+                  value="12months"
+                  control={<Radio sx={{ color: '#3B82F6', '&.Mui-checked': { color: '#3B82F6' } }} />}
+                  label="12 Months (₹5999)"
+                />
+                <FormControlLabel
+                  value="3months"
+                  control={<Radio sx={{ color: '#3B82F6', '&.Mui-checked': { color: '#3B82F6' } }} />}
+                  label="3 Months (₹1999)"
+                />
+              </RadioGroup>
+            </FormControl>
 
             <Box sx={{ textAlign: "center", my: isMobile ? 1.5 : 3 }}>
               <Box

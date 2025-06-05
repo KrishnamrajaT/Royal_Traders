@@ -11,7 +11,7 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
-const pages = ["Home", "Reviews"];
+const pages = ["Home", "Reviews", "Join Now"];
 
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -30,7 +30,7 @@ function Header() {
 
   return (
     <AppBar position="sticky" sx={{ backgroundColor: "#1E1E1E" }}>
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" sx={{ paddingRight: "38px" }}>
         <Toolbar disableGutters>
           <Typography
             variant="h6"
