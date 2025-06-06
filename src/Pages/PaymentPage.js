@@ -27,8 +27,8 @@ const PaymentModal = ({ open, onClose }) => {
   
   // Plan amounts
   const planAmounts = {
-    "12months": "12,999",
-    "3months": "5,999"
+    "12months": "15999",
+    "3months": "5999"
   };
   
   const amount = planAmounts[selectedPlan];
@@ -144,12 +144,12 @@ const PaymentModal = ({ open, onClose }) => {
                 <FormControlLabel
                   value="12months"
                   control={<Radio sx={{ color: '#3B82F6', '&.Mui-checked': { color: '#3B82F6' } }} />}
-                  label="12 Months (₹5999)"
+                  label="12 Months (₹15,999)"
                 />
                 <FormControlLabel
                   value="3months"
                   control={<Radio sx={{ color: '#3B82F6', '&.Mui-checked': { color: '#3B82F6' } }} />}
-                  label="3 Months (₹1999)"
+                  label="3 Months (₹5,999)"
                 />
               </RadioGroup>
             </FormControl>
