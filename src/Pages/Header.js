@@ -1,4 +1,4 @@
-import  React,{useState} from "react";
+import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -11,16 +11,14 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import PaymentModal from "../Pages/PaymentPage";
-
-import { Link } from "react-router-dom";
-const pages = ["Home", "Reviews"];
+import ArrowDownwardRoundedIcon from "@mui/icons-material/ArrowDownwardRounded";
+import { Link, useLocation } from 'react-router-dom';
 
 function Header() {
+  const location = useLocation();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-     const [isOpenPaymentModal, setIsOpenPaymentModal] = useState(false);
-       const [isModalOpen, setIsModalOpen] = useState(false);
-     
-
+  const [isOpenPaymentModal, setIsOpenPaymentModal] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -29,10 +27,41 @@ function Header() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-  const pageRoutes = {
-    Home: "/",
-    Reviews: "/review",
+
+  // Define all possible pages and their default routes
+  const allPages = {
+    Reviews: {
+      defaultPath: "/review",
+      homePath: "/review", // When on home page
+      reviewPath: "/",     // When on review page (becomes "Home" button)
+    }
   };
+
+  // Determine current page configuration based on route
+  const getCurrentPageConfig = () => {
+    const currentPath = location.pathname;
+    
+    return Object.entries(allPages).map(([pageName, routes]) => {
+      if (currentPath === "/") {
+        return {
+          name: pageName,
+          path: routes.homePath || routes.defaultPath
+        };
+      } else if (currentPath === routes.defaultPath) {
+        return {
+          name: "Home", // Change button text to "Home" when on review page
+          path: routes.reviewPath || "/" // Return to home
+        };
+      }
+      return {
+        name: pageName,
+        path: routes.defaultPath
+      };
+    });
+  };
+
+  // Get the current pages to display
+  const currentPages = getCurrentPageConfig();
 
   return (
     <>
@@ -56,49 +85,6 @@ function Header() {
             >
               Royal Traders
             </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "left",
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{ display: { xs: "block", md: "none" } }}
-              >
-                {pages.map((page) => (
-                  <MenuItem
-                    key={page}
-                    component={Link}
-                    to={pageRoutes[page]}
-                    onClick={handleCloseNavMenu}
-                    sx={{
-                      textDecoration: "none", // Remove underline
-                      color: "inherit", // Inherit text color
-                    }}
-                  >
-                    <Typography sx={{ textAlign: "center" }}>{page}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
 
             <Typography
               variant="h5"
@@ -108,9 +94,9 @@ function Header() {
               sx={{
                 mr: 2,
                 display: { xs: "flex", md: "none" },
-                justifyContent: "center",
+                justifyContent: "start",
                 fontSize: "25px",
-                letterSpacing: "3px",
+                letterSpacing: "1px",
                 flexGrow: 1,
                 fontWeight: 700,
                 color: "#F0F0F0",
@@ -119,46 +105,69 @@ function Header() {
             >
               Royal Traders
             </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              {pages.map((page) => (
+            
+            {/* Mobile View */}
+            <Box
+              sx={{
+                display: { xs: "flex", md: "none" },
+                justifyContent: "end",
+                marginRight: "-27px",
+              }}
+            >
+              {currentPages.map((page) => (
                 <Button
-                  key={page}
+                  key={page.name}
                   component={Link}
-                  to={pageRoutes[page]}
+                  variant="contained"
+                  to={page.path}
+                  sx={{
+                    color: "white",
+                    display: "block",
+                    padding: "6px 8px",
+                    background: "linear-gradient(45deg, #2563EB 0%, #1E40AF 100%)",
+                  }}
+                >
+                  {page.name}
+                </Button>
+              ))}
+            </Box>
+            
+            {/* Desktop View */}
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              {currentPages.map((page) => (
+                <Button
+                  key={page.name}
+                  component={Link}
+                  variant="contained"
+                  size="large"
+                  to={page.path}
                   sx={{
                     marginLeft: "30px",
                     my: 2,
                     color: "white",
                     display: "block",
+                    borderRadius: "15px",
+                    fontWeight: "bold",
+                    background: "linear-gradient(45deg, #2563EB 0%, #1E40AF 100%)",
                   }}
                 >
-                  {page}
+                  {page.name}
                 </Button>
               ))}
             </Box>
+            
             <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
               <JoinNowButton />
             </Box>
-            {/* <Box
-            sx={{
-              flexGrow: 0,
-              display: { xs: "flex", md: "none" },
-              position: "fixed",
-              top: "75px",
-              left: "249px",
-            }}
-          >
-            <JoinNowButton />
-          </Box> */}
           </Toolbar>
         </Container>
         <PaymentModal
-        onClose={() => setIsOpenPaymentModal(false)}
-        open={isOpenPaymentModal}
-      />
+          onClose={() => setIsOpenPaymentModal(false)}
+          open={isOpenPaymentModal}
+        />
       </AppBar>
-      
     </>
   );
 }
+
 export default Header;
