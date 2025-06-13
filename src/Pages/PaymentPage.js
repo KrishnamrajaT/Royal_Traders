@@ -206,6 +206,7 @@ const PaymentModal = ({ open, onClose }) => {
                     label="3 Months (₹5,999)"
                     sx={{
                       marginRight: isMobile ? 0 : 13.5,
+                      marginLeft:isMobile?"-8px":"-11px"
                     }}
                   />
                 </RadioGroup>
