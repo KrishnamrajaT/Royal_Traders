@@ -24,13 +24,13 @@ const PaymentModal = ({ open, onClose }) => {
   const [copied, setCopied] = useState(false);
   const [step, setStep] = useState("payment");
   const [selectedPlan, setSelectedPlan] = useState("12months");
-  
+
   // Plan amounts
   const planAmounts = {
-    "12months": "15999",
-    "3months": "5999"
+    "12months": "17999",
+    "3months": "5999",
   };
-  
+
   const amount = planAmounts[selectedPlan];
 
   // UPI Details
@@ -124,34 +124,92 @@ const PaymentModal = ({ open, onClose }) => {
             </Typography>
 
             {/* Plan Selection Radio Buttons */}
-            <FormControl component="fieldset" sx={{ mt: 1, mb: 2, width: '100%' }}>
-              <RadioGroup
-                row
-                aria-label="plan"
-                name="plan"
-                value={selectedPlan}
-                onChange={handlePlanChange}
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  gap: 2,
-                  '& .MuiTypography-root': {
-                    color: '#E2E8F0',
-                    fontSize: isMobile ? '0.8rem' : '0.9rem'
-                  }
-                }}
+            <FormControl
+              component="fieldset"
+              sx={{ mt: 1, mb: 2, width: "100%" }}
+            >
+              <FormControl
+                component="fieldset"
+                sx={{ mt: 1, mb: 2, width: "100%" }}
               >
-                <FormControlLabel
-                  value="12months"
-                  control={<Radio sx={{ color: '#3B82F6', '&.Mui-checked': { color: '#3B82F6' } }} />}
-                  label="12 Months (₹15,999)"
-                />
-                <FormControlLabel
-                  value="3months"
-                  control={<Radio sx={{ color: '#3B82F6', '&.Mui-checked': { color: '#3B82F6' } }} />}
-                  label="3 Months (₹5,999)"
-                />
-              </RadioGroup>
+                <RadioGroup
+                  row
+                  aria-label="plan"
+                  name="plan"
+                  value={selectedPlan}
+                  onChange={handlePlanChange}
+                  sx={{
+                    display: "flex",
+                    flexDirection: isMobile ? "column" : "row",
+                    justifyContent: "center",
+                    gap: isMobile ? 1 : 2,
+                    marginLeft: isMobile ? 5 : 2,
+                    "& .MuiTypography-root": {
+                      color: "#E2E8F0",
+                      fontSize: isMobile ? "0.8rem" : "0.9rem",
+                    },
+                  }}
+                >
+                  <FormControlLabel
+                    value="12months"
+                    control={
+                      <Radio
+                        sx={{
+                          color: "#3B82F6",
+                          "&.Mui-checked": { color: "#3B82F6" },
+                        }}
+                      />
+                    }
+                    label={
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 1,
+                          flexWrap: isMobile ? "wrap" : "nowrap",
+                        }}
+                      >
+                        <span>12 Months (₹17,999)</span>
+                        <Chip
+                          label={isMobile ? "25% OFF" : "25% OFF on 24,000"}
+                          size="small"
+                          sx={{
+                            bgcolor: "#10B981",
+                            color: "white",
+                            fontSize: isMobile ? "0.55rem" : "0.6rem",
+                            height: "20px",
+                            "& .MuiChip-label": {
+                              px: 0.5,
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                            },
+                          }}
+                        />
+                      </Box>
+                    }
+                    sx={{
+                      marginRight: 0,
+                      marginLeft: isMobile ? "-9px" : 0,
+                    }}
+                  />
+                  <FormControlLabel
+                    value="3months"
+                    control={
+                      <Radio
+                        sx={{
+                          color: "#3B82F6",
+                          "&.Mui-checked": { color: "#3B82F6" },
+                        }}
+                      />
+                    }
+                    label="3 Months (₹5,999)"
+                    sx={{
+                      marginRight: isMobile ? 0 : 13.5,
+                    }}
+                  />
+                </RadioGroup>
+              </FormControl>
             </FormControl>
 
             <Box sx={{ textAlign: "center", my: isMobile ? 1.5 : 3 }}>
