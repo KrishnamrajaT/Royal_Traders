@@ -41,7 +41,7 @@ const Footer = () => {
             <li>
               <a
                 className="anchor"
-                href="https://wa.me/8886184253"
+                href="https://wa.me/8297582319"
                 target="_blank"
                 rel="noopener noreferrer"
               >
