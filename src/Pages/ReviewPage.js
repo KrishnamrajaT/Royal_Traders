@@ -32,6 +32,7 @@ import ReviewForm from "./ReviewForm";
 import axios from "axios";
 import dayjs from "dayjs";
 import CustomPagination from "../components/CustomePagination";
+import videoPrePic from "../Assets/Main_Logo.png";
 
 // Styled components using the styled API
 const ReviewCard = styled(Card)(({ theme }) => ({
@@ -72,99 +73,45 @@ const ModalContent = styled(Box)(({ theme }) => ({
   position: "relative",
   outline: "none",
 }));
-const staticReviews = [
-  {
-    id: 1,
-    name: "John D.",
-    date: "March 15, 2023",
-    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
-    rating: 5,
-    content:
-      '"I\'ve been trading with this platform for 6 months now and the results have been incredible. The tools and signals provided have helped me grow my account by 120%. Highly recommended!"',
-    platform: "Trustpilot",
-  },
-  {
-    id: 2,
-    name: "Sarah M.",
-    date: "February 28, 2023",
-    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-    rating: 4.5,
-    content:
-      '"As a beginner, I was nervous about trading, but the educational resources and support team made it so easy to learn. I\'m now making consistent profits every week. Thank you!"',
-    platform: "Google Reviews",
-  },
-  {
-    id: 3,
-    name: "Robert T.",
-    date: "January 10, 2023",
-    avatar: "https://randomuser.me/api/portraits/men/67.jpg",
-    rating: 5,
-    content:
-      '"The best trading platform I\'ve used in 10 years of trading. The execution speed is unmatched and the daily analysis is spot on. My portfolio has never looked better."',
-    platform: "Facebook",
-  },
-  {
-    id: 4,
-    name: "John D.",
-    date: "March 15, 2023",
-    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
-    rating: 5,
-    content:
-      '"I\'ve been trading with this platform for 6 months now and the results have been incredible. The tools and signals provided have helped me grow my account by 120%. Highly recommended!"',
-    platform: "Trustpilot",
-  },
-  {
-    id: 5,
-    name: "Sarah M.",
-    date: "February 28, 2023",
-    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-    rating: 4.5,
-    content:
-      '"As a beginner, I was nervous about trading, but the educational resources and support team made it so easy to learn. I\'m now making consistent profits every week. Thank you!"',
-    platform: "Google Reviews",
-  },
-  {
-    id: 6,
-    name: "Robert T.",
-    date: "January 10, 2023",
-    avatar: "https://randomuser.me/api/portraits/men/67.jpg",
-    rating: 5,
-    content:
-      '"The best trading platform I\'ve used in 10 years of trading. The execution speed is unmatched and the daily analysis is spot on. My portfolio has never looked better."',
-    platform: "Facebook",
-  },
-];
+
 const videos = [
   {
-    id: 2,
-    title: "Swing Trades Recap",
-    date: "December 10, 2024",
-    thumbnail:
-      "https://img.freepik.com/free-photo/stock-market-graph-with-downtrend-line-digital-stock-market-background_53876-133827.jpg",
-
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    profit: "+256120 Profit",
-  },
-
-  {
-    id: 3,
-    title: "Weekend Market Review",
-    date: "March 5, 2025",
-    thumbnail:
-      "https://img.freepik.com/free-photo/stock-market-graph-with-downtrend-line-digital-stock-market-background_53876-133827.jpg",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    profit: "+432890 Profit",
+    id: 1,
+    title: "📢 Live REVIEWS | Premium Group Members (Part 1) 💰",
+    date: "May 2025",
+    thumbnail: videoPrePic,
+    videoUrl: "https://www.youtube.com/embed/JoX9KZKDjjo",
   },
   {
     id: 1,
-    title: "Nifty50 Analysis & Results",
-    date: "May 15, 2025",
-    thumbnail:
-      "https://img.freepik.com/free-photo/stock-market-graph-with-downtrend-line-digital-stock-market-background_53876-133827.jpg",
-
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    profit: "+305600 Profit",
+    title: "📢 Live REVIEWS | Premium Group Members (Part 2) 💰",
+    date: "May 2025",
+    thumbnail: videoPrePic,
+    videoUrl: "https://www.youtube.com/embed/iAaM_m2lfh8",
   },
+  {
+    id: 1,
+    title: "📢 Live REVIEWS | Premium Group Members (Part 3) 💰",
+    date: "May 2025",
+    thumbnail: videoPrePic,
+    videoUrl: "https://www.youtube.com/embed/8-4VPEjgQ-Y",
+    
+  }, {
+    id: 1,
+    title: "📢 Live REVIEWS | Premium Group Members (Part 4) 💰",
+    date: "May 2025",
+    thumbnail: videoPrePic,
+    videoUrl: "https://www.youtube.com/embed/O2Gp0mZVV-0",
+    
+  }, {
+    id: 1,
+    title: "📢 Live REVIEWS | Premium Group Members (Part 5) 💰",
+    date: "May 2025",
+    thumbnail: videoPrePic,
+    videoUrl: "https://www.youtube.com/embed/YAe7C5kHZ00",
+    
+  },
+  
 ];
 
 const ReviewPage = () => {
@@ -410,8 +357,7 @@ const ReviewPage = () => {
                     image={video.thumbnail}
                     alt={video.title}
                   />
-                  <PlayButton>
-                    {/* <PlayButton onClick={() => handleVideoOpen(video.videoUrl)}> */}
+                  <PlayButton onClick={() => handleVideoOpen(video.videoUrl)}>
                     <PlayArrowIcon color="primary" fontSize="large" />
                   </PlayButton>
                   <CardContent>
@@ -431,14 +377,14 @@ const ReviewPage = () => {
                     >
                       {video.title}
                     </Typography>
-                    <Chip
+                    {/* <Chip
                       label={video.profit}
                       sx={{
                         backgroundColor: theme.palette.success.main,
                         color: theme.palette.common.white,
                         fontWeight: 600,
                       }}
-                    />
+                    /> */}
                   </CardContent>
                 </VideoCard>
               </Grid>
