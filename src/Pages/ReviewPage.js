@@ -305,7 +305,6 @@ const ReviewPage = () => {
                           fontStyle="italic"
                           sx={{
                             display: "-webkit-box",
-                            WebkitLineClamp: 3, // Truncate after 3 lines
                             WebkitBoxOrient: "vertical",
                             overflow: "hidden",
                           }}
