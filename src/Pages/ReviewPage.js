@@ -31,6 +31,7 @@ import {
 import ReviewForm from "./ReviewForm";
 import axios from "axios";
 import dayjs from "dayjs";
+import CustomPagination from "../components/CustomePagination";
 
 // Styled components using the styled API
 const ReviewCard = styled(Card)(({ theme }) => ({
@@ -135,54 +136,40 @@ const staticReviews = [
 ];
 const videos = [
   {
-    id: 1,
-    title: "Forex Pairs Analysis & Results",
-    date: "May 15, 2023",
-    thumbnail:
-      "https://img.freepik.com/free-photo/graph-screen-with-uptrend-line-digital-stock-market-background_53876-133826.jpg",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    profit: "+$2,450 Profit",
-  },
-  {
     id: 2,
-    title: "Crypto Swing Trades Recap",
-    date: "May 14, 2023",
+    title: "Swing Trades Recap",
+    date: "December 10, 2024",
     thumbnail:
-      "https://img.freepik.com/free-photo/stock-market-graph-with-uptrend-line-digital-stock-market-background_53876-133825.jpg",
+      "https://img.freepik.com/free-photo/stock-market-graph-with-downtrend-line-digital-stock-market-background_53876-133827.jpg",
+
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    profit: "+$3,120 Profit",
+    profit: "+256120 Profit",
   },
+
   {
     id: 3,
     title: "Weekend Market Review",
-    date: "May 13, 2023",
+    date: "March 5, 2025",
     thumbnail:
       "https://img.freepik.com/free-photo/stock-market-graph-with-downtrend-line-digital-stock-market-background_53876-133827.jpg",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    profit: "+$1,890 Profit",
+    profit: "+432890 Profit",
   },
   {
-    id: 4,
-    title: "Crypto Swing Trades Recap",
-    date: "May 14, 2023",
-    thumbnail:
-      "https://img.freepik.com/free-photo/stock-market-graph-with-uptrend-line-digital-stock-market-background_53876-133825.jpg",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    profit: "+$3,120 Profit",
-  },
-  {
-    id: 5,
-    title: "Weekend Market Review",
-    date: "May 13, 2023",
+    id: 1,
+    title: "Nifty50 Analysis & Results",
+    date: "May 15, 2025",
     thumbnail:
       "https://img.freepik.com/free-photo/stock-market-graph-with-downtrend-line-digital-stock-market-background_53876-133827.jpg",
+
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    profit: "+$1,890 Profit",
+    profit: "+305600 Profit",
   },
 ];
 
 const ReviewPage = () => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [modalOpen, setModalOpen] = useState(false);
   const [currentVideo, setCurrentVideo] = useState("");
@@ -198,7 +185,7 @@ const ReviewPage = () => {
     videosPage * videosPerPage
   );
   const [reviewsPage, setReviewsPage] = useState(1);
-  const reviewsPerPage = 3;
+  const reviewsPerPage = isMobile ? 3 : 9;
 
   const currentReviews = reviews?.slice(
     (reviewsPage - 1) * reviewsPerPage,
@@ -306,172 +293,169 @@ const ReviewPage = () => {
             Client Testimonials
           </Typography>
           <Box>
-            <Grid container spacing={2}>
-              {currentReviews?.map((review) => (
-                <Grid item xs={12} sm={6} md={4} key={review.id}>
-                  <ReviewCard>
-                    <CardContent>
-                      <Box display="flex" alignItems="center" mb={2}>
-                        <Avatar
-                          src={review.avatar}
-                          alt={review.name}
-                          sx={{ width: 56, height: 56, mr: 2 }}
-                        />
-                        <Box>
-                          <Typography variant="subtitle1" fontWeight="bold">
-                            {review.name}
-                          </Typography>
-                          {dayjs(review.createdAt).format('YYYY-MM-DD')} 
+            <Box sx={{ width: "100%" }}>
+              <Grid
+                container
+                spacing={3}
+                sx={{
+                  // Explicitly define grid layout for 3 rows
+                  display: "grid",
+                  gridTemplateColumns: {
+                    xs: "repeat(1, 1fr)", // 1 column on mobile
+                    sm: "repeat(2, 1fr)", // 2 columns on tablet
+                    md: "repeat(3, 1fr)", // 3 columns on desktop
+                  },
+                  gridAutoRows: "1fr", // Equal row height
+                  gap: 3, // Consistent spacing
+                }}
+              >
+                {currentReviews?.map((review) => (
+                  <Grid
+                    item
+                    key={review.id}
+                    sx={{
+                      display: "flex",
+                      minHeight: "300px", // Fixed minimum height per card
+                    }}
+                  >
+                    <ReviewCard
+                      sx={{
+                        width: "100%",
+                        height: "100%", // Fill grid cell
+                      }}
+                    >
+                      <CardContent sx={{ flexGrow: 1 }}>
+                        {/* Review content */}
+                        <Box display="flex" alignItems="center" mb={2}>
+                          <Avatar
+                            src={review.avatar}
+                            sx={{ width: 56, height: 56, mr: 2 }}
+                          />
+                          <Box>
+                            <Typography fontWeight="bold">
+                              {review.name}
+                            </Typography>
+                            <Typography>
+                              {dayjs(review.createdAt).format("YYYY-MM-DD")}
+                            </Typography>
+                          </Box>
                         </Box>
-                      </Box>
-                      <Rating
-                        name="read-only-rating"
-                        value={review.rating}
-                        precision={0.5}
-                        readOnly
-                        sx={{
-                          "& .MuiRating-iconFilled": {
-                            color:
-                              "linear-gradient(45deg, #2563eb 0%, #1e40af 100%)",
-                          },
-                          "& .MuiRating-iconHover": {
-                            color:
-                              "linear-gradient(45deg, #2563eb 0%, #1e40af 100%)",
-                          },
-                        }}
-                      />
-                      <Typography
-                        variant="body1"
-                        fontStyle="italic"
-                        color="text.secondary"
-                        mb={2}
-                      >
-                        {review.message}
-                      </Typography>
-                    </CardContent>
-                  </ReviewCard>
-                </Grid>
-              ))}
-            </Grid>
+                        <Rating
+                          value={review.rating}
+                          precision={0.5}
+                          readOnly
+                          sx={{
+                            "& .MuiRating-iconFilled": {
+                              color: "primary.main",
+                            },
+                            "& .MuiRating-iconHover": {
+                              color: "primary.dark",
+                            },
+                          }}
+                        />
+                        <Typography
+                          variant="body1"
+                          fontStyle="italic"
+                          sx={{
+                            display: "-webkit-box",
+                            WebkitLineClamp: 3, // Truncate after 3 lines
+                            WebkitBoxOrient: "vertical",
+                            overflow: "hidden",
+                          }}
+                        >
+                          {review.message}
+                        </Typography>
+                      </CardContent>
+                    </ReviewCard>
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
 
             {/* Add pagination controls for reviews */}
             <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-              <Pagination
+              <CustomPagination
                 count={Math.ceil(reviews?.length / reviewsPerPage)}
                 page={reviewsPage}
                 onChange={handleReviewsPageChange}
-                size="large"
-                sx={{
-                  "& .MuiPaginationItem-root": {
-                    color: "#2563eb", // Default color
-                    "&:hover": {
-                      background:
-                        "linear-gradient(45deg, #2563eb 0%, #1e40af 100%)",
-                      color: "white",
-                    },
-                  },
-                  "& .Mui-selected": {
-                    background:
-                      "linear-gradient(45deg, #2563eb 0%, #1e40af 100%)",
-                    color: "white",
-                    "&:hover": {
-                      background:
-                        "linear-gradient(45deg, #2563eb 0%, #1e40af 100%)",
-                    },
-                  },
-                  "& .MuiPaginationItem-ellipsis": {
-                    color: "#2563eb",
-                  },
-                  "& .MuiSvgIcon-root": {
-                    fill: "#2563eb",
-                  },
-                }}
               />
             </Box>
           </Box>
         </Box>
 
         {/* Videos Section */}
-        <Grid container spacing={4}>
-          {currentVideos.map((video) => (
-            <Grid item xs={12} sm={6} md={4} key={video.id}>
-              <VideoCard>
-                <CardMedia
-                  component="img"
-                  height="200"
-                  image={video.thumbnail}
-                  alt={video.title}
-                />
-                <PlayButton onClick={() => handleVideoOpen(video.videoUrl)}>
-                  <PlayArrowIcon color="primary" fontSize="large" />
-                </PlayButton>
-                <CardContent>
-                  <Typography
-                    variant="body2"
-                    color="primary"
-                    fontWeight="medium"
-                    mb={1}
-                  >
-                    {video.date}
-                  </Typography>
-                  <Typography
-                    variant="h6"
-                    component="h3"
-                    fontWeight="bold"
-                    mb={1}
-                  >
-                    {video.title}
-                  </Typography>
-                  <Chip
-                    label={video.profit}
-                    sx={{
-                      backgroundColor: theme.palette.success.main,
-                      color: theme.palette.common.white,
-                      fontWeight: 600,
-                    }}
+
+        <Box sx={{ width: "100%" }}>
+          <Grid
+            container
+            spacing={3}
+            sx={{
+              // Explicitly define grid layout for 3 rows
+              display: "grid",
+              gridTemplateColumns: {
+                xs: "repeat(1, 1fr)", // 1 column on mobile
+                sm: "repeat(2, 1fr)", // 2 columns on tablet
+                md: "repeat(3, 1fr)", // 3 columns on desktop
+              },
+              gridAutoRows: "1fr", // Equal row height
+              gap: 3, // Consistent spacing
+            }}
+          >
+            {currentVideos.map((video) => (
+              <Grid item xs={12} sm={6} md={4} key={video.id}>
+                <VideoCard>
+                  <CardMedia
+                    component="img"
+                    height="200"
+                    image={video.thumbnail}
+                    alt={video.title}
                   />
-                </CardContent>
-              </VideoCard>
-            </Grid>
-          ))}
-        </Grid>
+                  <PlayButton>
+                    {/* <PlayButton onClick={() => handleVideoOpen(video.videoUrl)}> */}
+                    <PlayArrowIcon color="primary" fontSize="large" />
+                  </PlayButton>
+                  <CardContent>
+                    <Typography
+                      variant="body2"
+                      color="primary"
+                      fontWeight="medium"
+                      mb={1}
+                    >
+                      {video.date}
+                    </Typography>
+                    <Typography
+                      variant="h6"
+                      component="h3"
+                      fontWeight="bold"
+                      mb={1}
+                    >
+                      {video.title}
+                    </Typography>
+                    <Chip
+                      label={video.profit}
+                      sx={{
+                        backgroundColor: theme.palette.success.main,
+                        color: theme.palette.common.white,
+                        fontWeight: 600,
+                      }}
+                    />
+                  </CardContent>
+                </VideoCard>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
 
         {/* Add pagination controls */}
         <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-          <Pagination
+          <CustomPagination
             count={Math.ceil(videos.length / videosPerPage)}
             page={videosPage}
             onChange={(event, page) => setVideosPage(page)}
-            color="primary"
-            size="large"
-            sx={{
-              "& .MuiPaginationItem-root": {
-                color: "#2563eb", // Default color
-                "&:hover": {
-                  background:
-                    "linear-gradient(45deg, #2563eb 0%, #1e40af 100%)",
-                  color: "white",
-                },
-              },
-              "& .Mui-selected": {
-                background: "linear-gradient(45deg, #2563eb 0%, #1e40af 100%)",
-                color: "white",
-                "&:hover": {
-                  background:
-                    "linear-gradient(45deg, #2563eb 0%, #1e40af 100%)",
-                },
-              },
-              "& .MuiPaginationItem-ellipsis": {
-                color: "#2563eb",
-              },
-              "& .MuiSvgIcon-root": {
-                fill: "#2563eb",
-              },
-            }}
           />
         </Box>
         {/* Testimonial Form */}
-        <ReviewForm isRefresh={isRefresh} setIsRefresh={setIsRefresh}/>
+        <ReviewForm isRefresh={isRefresh} setIsRefresh={setIsRefresh} />
       </Box>
 
       {/* Video Modal */}
