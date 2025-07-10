@@ -27,6 +27,8 @@ import {
   StarBorder as StarBorderIcon,
   PlayArrow as PlayArrowIcon,
   Close as CloseIcon,
+  MusicNote as MusicNoteIcon,
+  Pause as PauseIcon,
 } from "@mui/icons-material";
 import ReviewForm from "./ReviewForm";
 import axios from "axios";
@@ -95,25 +97,43 @@ const videos = [
     date: "May 2025",
     thumbnail: videoPrePic,
     videoUrl: "https://www.youtube.com/embed/8-4VPEjgQ-Y",
-    
-  }, {
+  },
+  {
     id: 1,
     title: "📢 Live REVIEWS | Premium Group Members (Part 4) 💰",
     date: "May 2025",
     thumbnail: videoPrePic,
     videoUrl: "https://www.youtube.com/embed/O2Gp0mZVV-0",
-    
-  }, {
+  },
+  {
     id: 1,
     title: "📢 Live REVIEWS | Premium Group Members (Part 5) 💰",
     date: "May 2025",
     thumbnail: videoPrePic,
     videoUrl: "https://www.youtube.com/embed/YAe7C5kHZ00",
-    
   },
-  
 ];
 
+const AudioPlayer = styled("audio")({
+  width: "100%",
+  marginTop: "8px",
+});
+const MediaCard = styled(Card)({
+  position: "relative",
+  overflow: "hidden",
+  height: "100%",
+});
+const audios = [
+  {
+    id: 1,
+    title: "Market Analysis Podcast",
+    date: "May 10, 2023",
+    description: "Daily market trends and analysis",
+    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+    duration: "15:30",
+  },
+  // Add more audio files as needed...
+];
 const ReviewPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -122,7 +142,8 @@ const ReviewPage = () => {
   const [currentVideo, setCurrentVideo] = useState("");
   const [reviews, setReviews] = useState(null);
   const [isRefresh, setIsRefresh] = useState(false);
-
+  const [currentAudio, setCurrentAudio] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [videosPage, setVideosPage] = useState(1);
   const videosPerPage = 3;
 
@@ -159,6 +180,16 @@ const ReviewPage = () => {
     setModalOpen(false);
     setCurrentVideo("");
   };
+
+  const handleAudioPlay = (audioUrl) => {
+    if (currentAudio === audioUrl) {
+      setIsPlaying(!isPlaying);
+    } else {
+      setCurrentAudio(audioUrl);
+      setIsPlaying(true);
+    }
+  };
+
   let REVIEW_URL = "https://royal-traders-5euy.vercel.app/rating";
   const fetchReviews = () => {
     axios
@@ -328,9 +359,7 @@ const ReviewPage = () => {
             </Box>
           </Box>
         </Box>
-
         {/* Videos Section */}
-
         <Box sx={{ width: "100%" }}>
           <Grid
             container
@@ -390,7 +419,6 @@ const ReviewPage = () => {
             ))}
           </Grid>
         </Box>
-
         {/* Add pagination controls */}
         <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
           <CustomPagination
@@ -399,6 +427,87 @@ const ReviewPage = () => {
             onChange={(event, page) => setVideosPage(page)}
           />
         </Box>
+        {/* Audio section */}/
+        {/* <Box mb={8}>
+          <Grid
+            container
+            spacing={3}
+            sx={{
+              // Explicitly define grid layout for 3 rows
+              display: "grid",
+              gridTemplateColumns: {
+                xs: "repeat(1, 1fr)", // 1 column on mobile
+                sm: "repeat(2, 1fr)", // 2 columns on tablet
+                md: "repeat(3, 1fr)", // 3 columns on desktop
+              },
+              gridAutoRows: "1fr", // Equal row height
+              gap: 3, // Consistent spacing
+            }}
+          >
+            {audios.map((audio) => (
+              <Grid item xs={12} sm={6} md={4} key={audio.id}>
+                <CardMedia height="200">
+                  <CardContent
+                    sx={{
+                      height: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                      <MusicNoteIcon
+                        color="primary"
+                        sx={{ fontSize: 40, mr: 2 }}
+                      />
+                      <Box>
+                        <Typography
+                          variant="h6"
+                          component="h3"
+                          fontWeight="bold"
+                        >
+                          {audio.title}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          {audio.date}
+                        </Typography>
+                      </Box>
+                    </Box>
+                    <Typography variant="body1" color="text.secondary" mb={2}>
+                      {audio.description}
+                    </Typography>
+                    <Box
+                      sx={{ mt: "auto", display: "flex", alignItems: "center" }}
+                    >
+                      <IconButton
+                        onClick={() => handleAudioPlay(audio.audioUrl)}
+                        color="primary"
+                        sx={{ mr: 2 }}
+                      >
+                        {currentAudio === audio.audioUrl && isPlaying ? (
+                          <PauseIcon />
+                        ) : (
+                          <PlayArrowIcon />
+                        )}
+                      </IconButton>
+                      <Typography variant="body2">{audio.duration}</Typography>
+                    </Box>
+                    {currentAudio === audio.audioUrl && (
+                      <AudioPlayer
+                        controls
+                        autoPlay={isPlaying}
+                        onPlay={() => setIsPlaying(true)}
+                        onPause={() => setIsPlaying(false)}
+                      >
+                        <source src={audio.audioUrl} type="audio/mpeg" />
+                        Your browser does not support the audio element.
+                      </AudioPlayer>
+                    )}
+                  </CardContent>
+                </CardMedia>
+              </Grid>
+            ))}
+          </Grid>
+        </Box> */}
         {/* Testimonial Form */}
         <ReviewForm isRefresh={isRefresh} setIsRefresh={setIsRefresh} />
       </Box>
