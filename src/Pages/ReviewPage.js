@@ -265,9 +265,9 @@ const ReviewPage = () => {
   const [currentVideo, setCurrentVideo] = useState("");
   const [reviews, setReviews] = useState(null);
   const [isRefresh, setIsRefresh] = useState(false);
-  const [currentAudio, setCurrentAudio] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [videosPage, setVideosPage] = useState(1);
+  const [currentAudioId, setCurrentAudioId] = useState(null);
   const videosPerPage = 3;
 
   // Calculate current videos to display
@@ -299,6 +299,20 @@ const ReviewPage = () => {
     setAudioPage(page);
   };
 
+const handleAudioPlay = (audio) => {
+  const audioElement = document.getElementById(`audio-${audio.id}`);
+  
+  if (currentAudioId === audio.id && isPlaying) {
+    audioElement.pause();
+  } else {
+    // Pause any currently playing audio
+    if (currentAudioId) {
+      const prevAudio = document.getElementById(`audio-${currentAudioId}`);
+      prevAudio.pause();
+    }
+    audioElement.play();
+  }
+};
   // Sample client reviews data
 
   // Sample trading videos data
@@ -313,14 +327,7 @@ const ReviewPage = () => {
     setCurrentVideo("");
   };
 
-  const handleAudioPlay = (audioUrl) => {
-    if (currentAudio === audioUrl) {
-      setIsPlaying(!isPlaying);
-    } else {
-      setCurrentAudio(audioUrl);
-      setIsPlaying(true);
-    }
-  };
+
 
   let REVIEW_URL = "https://royal-traders-5euy.vercel.app/rating";
   const fetchReviews = () => {
@@ -578,7 +585,7 @@ const ReviewPage = () => {
           >
             {currentAudios.map((audio) => (
               <Grid item xs={12} sm={6} md={4} key={audio.id}>
-                <CardMedia height="200">
+                <Card sx={{ height: "100%" }}>
                   <CardContent
                     sx={{
                       height: "100%",
@@ -595,9 +602,7 @@ const ReviewPage = () => {
                           variant="h6"
                           component="h3"
                           fontWeight="bold"
-                          sx={{
-                            color: "#1976d2",
-                          }}
+                          sx={{ color: "#1976d2" }}
                         >
                           {audio.title}
                         </Typography>
@@ -606,46 +611,48 @@ const ReviewPage = () => {
                         </Typography>
                       </Box>
                     </Box>
-                    <Typography variant="body1" paddingLeft={"12px"} color="text.secondary" mb={2}>
+                    <Typography
+                      variant="body1"
+                      paddingLeft={"12px"}
+                      color="text.secondary"
+                      mb={2}
+                    >
                       {audio.description}
                     </Typography>
                     <Box
-                      sx={{ mt: "auto", display: "flex", alignItems: "center" }}
+                      sx={{ display: "flex", alignItems: "center" }}
                     >
                       <IconButton
-                        onClick={() => handleAudioPlay(audio.audioUrl)}
+                        onClick={() => handleAudioPlay(audio)}
                         color="primary"
                         sx={{ mr: 2 }}
                       >
-                        {currentAudio === audio.audioUrl && isPlaying ? (
-                          <PauseIcon
-                            sx={{
-                              color: "#1976d2",
-                            }}
-                          />
+                        {currentAudioId === audio.id && isPlaying ? (
+                          <PauseIcon sx={{ color: "#1976d2" }} />
                         ) : (
-                          <PlayArrowIcon
-                            sx={{
-                              color: "#1976d2",
-                            }}
-                          />
+                          <PlayArrowIcon sx={{ color: "#1976d2" }} />
                         )}
                       </IconButton>
                       <Typography variant="body2">{audio.duration}</Typography>
                     </Box>
-                    {currentAudio === audio.audioUrl && (
-                      <AudioPlayer
-                        controls
-                        autoPlay={isPlaying}
-                        onPlay={() => setIsPlaying(true)}
-                        onPause={() => setIsPlaying(false)}
-                      >
-                        <source src={audio.audioUrl} type="audio/mpeg" />
-                        Your browser does not support the audio element.
-                      </AudioPlayer>
-                    )}
                   </CardContent>
-                </CardMedia>
+                </Card>
+
+                {/* Hidden audio element */}
+                <audio
+                  id={`audio-${audio.id}`}
+                  preload="none"
+                  onPlay={() => {
+                    setIsPlaying(true);
+                    setCurrentAudioId(audio.id);
+                  }}
+                  onPause={() => setIsPlaying(false)}
+                >
+                  <source src={audio.audioUrl} type="audio/mp3" />
+                  <source src={audio.audioUrl} type="audio/mpeg" />
+                  <source src={audio.audioUrl} type="audio/wav" />
+                  Your browser does not support the audio element.
+                </audio>
               </Grid>
             ))}
           </Grid>
