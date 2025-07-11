@@ -35,6 +35,22 @@ import axios from "axios";
 import dayjs from "dayjs";
 import CustomPagination from "../components/CustomePagination";
 import videoPrePic from "../Assets/Main_Logo.png";
+import audio_1 from "../Assets/audio_reviews/client_1_07-25.ogg";
+import audio_2 from "../Assets/audio_reviews/clinet_2_07-25.ogg";
+import audio_3 from "../Assets/audio_reviews/clinet_3_07-25.ogg";
+import audio_4 from "../Assets/audio_reviews/clinet_4_07-25.ogg";
+import audio_5 from "../Assets/audio_reviews/clinet_5_07-25.ogg";
+import audio_6 from "../Assets/audio_reviews/clinet_6_07-25.ogg";
+import audio_7 from "../Assets/audio_reviews/clinet_7_07-25.ogg";
+import audio_8 from "../Assets/audio_reviews/clinet_8_07-25.ogg";
+import audio_9 from "../Assets/audio_reviews/clinet_9_07-25.ogg";
+import audio_10 from "../Assets/audio_reviews/clinet_10_07-25.ogg";
+import audio_11 from "../Assets/audio_reviews/clinet_11_07-25.ogg";
+import audio_12 from "../Assets/audio_reviews/clinet_12_07-25.ogg";
+import audio_13 from "../Assets/audio_reviews/clinet_13_07-25.ogg";
+import audio_14 from "../Assets/audio_reviews/clinet_14_07-25.ogg";
+import audio_15 from "../Assets/audio_reviews/clinet_15_07-25.ogg";
+import { color } from "framer-motion";
 
 // Styled components using the styled API
 const ReviewCard = styled(Card)(({ theme }) => ({
@@ -118,21 +134,128 @@ const AudioPlayer = styled("audio")({
   width: "100%",
   marginTop: "8px",
 });
-const MediaCard = styled(Card)({
-  position: "relative",
-  overflow: "hidden",
-  height: "100%",
-});
+
 const audios = [
   {
     id: 1,
-    title: "Market Analysis Podcast",
-    date: "May 10, 2023",
-    description: "Daily market trends and analysis",
-    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-    duration: "15:30",
+    date: "July, 2025",
+    title: "Client Success Story #1",
+    description: "How Royal Traders helped me achieve consistent profits",
+    audioUrl: audio_1,
+    duration: "2:45",
   },
-  // Add more audio files as needed...
+  {
+    id: 2,
+    date: "July, 2025",
+    title: "Client Success Story #2",
+    description: "My experience with Royal Traders' expert advisors",
+    audioUrl: audio_2,
+    duration: "1:58",
+  },
+  {
+    id: 3,
+    date: "July, 2025",
+    title: "Client Success Story #3",
+    description: "The training program that changed my trading approach",
+    audioUrl: audio_3,
+    duration: "3:12",
+  },
+  {
+    id: 4,
+    date: "July, 2025",
+    title: "Client Success Story #4",
+    description: "From beginner to profitable trader with Royal Traders",
+    audioUrl: audio_4,
+    duration: "2:30",
+  },
+  {
+    id: 5,
+    date: "July, 2025",
+    title: "Client Success Story #5",
+    description: "How the signals service improved my results",
+    audioUrl: audio_5,
+    duration: "2:15",
+  },
+  {
+    id: 6,
+    date: "July, 2025",
+    title: "Client Success Story #6",
+    description: "The support team that actually cares",
+    audioUrl: audio_6,
+    duration: "1:45",
+  },
+  {
+    id: 7,
+    date: "July, 2025",
+    title: "Client Success Story #7",
+    description: "My journey to financial freedom with Royal Traders",
+    audioUrl: audio_7,
+    duration: "3:45",
+  },
+  {
+    id: 8,
+    date: "July, 2025",
+    title: "Client Success Story #8",
+    description: "Why I trust Royal Traders with my investments",
+    audioUrl: audio_8,
+    duration: "2:22",
+  },
+  {
+    id: 9,
+    date: "July, 2025",
+    title: "Client Success Story #9",
+    description: "The tools that gave me an edge in the markets",
+    audioUrl: audio_9,
+    duration: "2:08",
+  },
+  {
+    id: 10,
+    date: "July, 2025",
+    title: "Client Success Story #10",
+    description: "How I doubled my account in 6 months",
+    audioUrl: audio_10,
+    duration: "3:02",
+  },
+  {
+    id: 11,
+    date: "July, 2025",
+    title: "Client Success Story #11",
+    description: "The community that supports my trading journey",
+    audioUrl: audio_11,
+    duration: "2:18",
+  },
+  {
+    id: 12,
+    date: "July, 2025",
+    title: "Client Success Story #12",
+    description: "My first profitable month with Royal Traders",
+    audioUrl: audio_12,
+    duration: "1:52",
+  },
+  {
+    id: 13,
+    date: "July, 2025",
+    title: "Client Success Story #13",
+    description: "Why I recommend Royal Traders to all my friends",
+    audioUrl: audio_13,
+    duration: "2:37",
+  },
+  {
+    id: 14,
+    date: "July, 2025",
+    title: "Client Success Story #14",
+    description: "The strategy that works in any market condition",
+    audioUrl: audio_14,
+    duration: "3:15",
+  },
+  {
+    id: 15,
+    date: "July, 2025",
+    title: "Client Success Story #15",
+    description: "How Royal Traders helped me quit my 9-5 job",
+    audioUrl: audio_15,
+    duration: "4:02",
+  },
 ];
 const ReviewPage = () => {
   const theme = useTheme();
@@ -153,11 +276,17 @@ const ReviewPage = () => {
     videosPage * videosPerPage
   );
   const [reviewsPage, setReviewsPage] = useState(1);
+  const [audioPage, setAudioPage] = useState(1);
   const reviewsPerPage = isMobile ? 3 : 9;
+  const audiosPerPage = isMobile ? 3 : 9;
 
   const currentReviews = reviews?.slice(
     (reviewsPage - 1) * reviewsPerPage,
     reviewsPage * reviewsPerPage
+  );
+  const currentAudios = audios?.slice(
+    (audioPage - 1) * audiosPerPage,
+    audioPage * audiosPerPage
   );
 
   // Calculate the reviews to display for the current page
@@ -165,6 +294,9 @@ const ReviewPage = () => {
   // Handle page change
   const handleReviewsPageChange = (event, page) => {
     setReviewsPage(page);
+  };
+  const handleAudioPageChange = (event, page) => {
+    setAudioPage(page);
   };
 
   // Sample client reviews data
@@ -354,7 +486,7 @@ const ReviewPage = () => {
               <CustomPagination
                 count={Math.ceil(reviews?.length / reviewsPerPage)}
                 page={reviewsPage}
-                onChange={handleReviewsPageChange}
+                onChange={(event, page) => setReviewsPage(page)}
               />
             </Box>
           </Box>
@@ -428,7 +560,7 @@ const ReviewPage = () => {
           />
         </Box>
         {/* Audio section */}/
-        {/* <Box mb={8}>
+        <Box mb={8}>
           <Grid
             container
             spacing={3}
@@ -444,7 +576,7 @@ const ReviewPage = () => {
               gap: 3, // Consistent spacing
             }}
           >
-            {audios.map((audio) => (
+            {currentAudios.map((audio) => (
               <Grid item xs={12} sm={6} md={4} key={audio.id}>
                 <CardMedia height="200">
                   <CardContent
@@ -456,14 +588,16 @@ const ReviewPage = () => {
                   >
                     <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                       <MusicNoteIcon
-                        color="primary"
-                        sx={{ fontSize: 40, mr: 2 }}
+                        sx={{ fontSize: 40, mr: 2, color: "#1976d2" }}
                       />
                       <Box>
                         <Typography
                           variant="h6"
                           component="h3"
                           fontWeight="bold"
+                          sx={{
+                            color: "#1976d2",
+                          }}
                         >
                           {audio.title}
                         </Typography>
@@ -472,7 +606,7 @@ const ReviewPage = () => {
                         </Typography>
                       </Box>
                     </Box>
-                    <Typography variant="body1" color="text.secondary" mb={2}>
+                    <Typography variant="body1" paddingLeft={"12px"} color="text.secondary" mb={2}>
                       {audio.description}
                     </Typography>
                     <Box
@@ -484,9 +618,17 @@ const ReviewPage = () => {
                         sx={{ mr: 2 }}
                       >
                         {currentAudio === audio.audioUrl && isPlaying ? (
-                          <PauseIcon />
+                          <PauseIcon
+                            sx={{
+                              color: "#1976d2",
+                            }}
+                          />
                         ) : (
-                          <PlayArrowIcon />
+                          <PlayArrowIcon
+                            sx={{
+                              color: "#1976d2",
+                            }}
+                          />
                         )}
                       </IconButton>
                       <Typography variant="body2">{audio.duration}</Typography>
@@ -507,7 +649,15 @@ const ReviewPage = () => {
               </Grid>
             ))}
           </Grid>
-        </Box> */}
+          {/* Add pagination controls */}
+          <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+            <CustomPagination
+              count={Math.ceil(audios?.length / audiosPerPage)}
+              page={audioPage}
+              onChange={(event, page) => setAudioPage(page)}
+            />
+          </Box>
+        </Box>
         {/* Testimonial Form */}
         <ReviewForm isRefresh={isRefresh} setIsRefresh={setIsRefresh} />
       </Box>
