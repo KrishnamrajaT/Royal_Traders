@@ -169,7 +169,7 @@ const PaymentModal = ({ open, onClose }) => {
                           flexWrap: isMobile ? "wrap" : "nowrap",
                         }}
                       >
-                        <span>12 Months (₹17,999)</span>
+                        <span>12 Months (₹19,999)</span>
                         <Chip
                           label={isMobile ? "25% OFF" : "25% OFF on 24,000"}
                           size="small"
