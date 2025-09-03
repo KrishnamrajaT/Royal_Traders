@@ -5,7 +5,7 @@ import Cards from "./Pages/cards";
 import MentorshipCard from "./Pages/MentorshipCard";
 import Chatbox from "./ChatBox";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import ReviewPage from "./Pages/ReviewPage";
+import ReviewPage from "./Pages/Reviews/ReviewPage";
 function App() {
 
 
