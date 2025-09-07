@@ -21,6 +21,20 @@ const AddRating = async (req, res) => {
   }
 };
 
+const DeleteRating = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deletedRating = await addRating.findByIdAndDelete(id);
+    if (!deletedRating) {
+      return res.status(404).json({ message: "Rating not found" });
+    }
+    res.status(200).json({ message: "Rating deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 // Get all ratings
 const GetAllRatings = async (req, res) => {
   try {
@@ -32,4 +46,4 @@ const GetAllRatings = async (req, res) => {
   }
 };
 
-module.exports = { AddRating, GetAllRatings };
+module.exports = { AddRating, GetAllRatings,DeleteRating };
