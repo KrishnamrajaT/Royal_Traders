@@ -15,13 +15,9 @@ import {
   styled,
 } from "@mui/material";
 import {
-  Star as StarIcon,
-  StarHalf as StarHalfIcon,
-  StarBorder as StarBorderIcon,
-  PlayArrow as PlayArrowIcon,
   Close as CloseIcon,
-  MusicNote as MusicNoteIcon,
-  Pause as PauseIcon,
+  PlayArrow as PlayArrowIcon,
+ 
 } from "@mui/icons-material";
 import ReviewForm from "../ReviewForm";
 import axios from "axios";
