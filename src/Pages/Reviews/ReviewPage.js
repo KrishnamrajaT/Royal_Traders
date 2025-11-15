@@ -23,7 +23,7 @@ import ReviewForm from "../ReviewForm";
 import axios from "axios";
 import dayjs from "dayjs";
 import CustomPagination from "../../components/CustomePagination";
-import videoPrePic from "../../Assets/Main_Logo.png";
+import videoPrePic from "../../Assets/Main_Logo.png"; // fallback thumbnail
 import AudioTestimonials from "./AudioReviewPage";
 
 // Styled components using the styled API
@@ -66,43 +66,7 @@ const ModalContent = styled(Box)(({ theme }) => ({
   outline: "none",
 }));
 
-const videos = [
-  {
-    id: 1,
-    title: "📢 Live REVIEWS | Premium Group Members (Part 1) 💰",
-    date: "May 2025",
-    thumbnail: videoPrePic,
-    videoUrl: "https://www.youtube.com/embed/JoX9KZKDjjo",
-  },
-  {
-    id: 1,
-    title: "📢 Live REVIEWS | Premium Group Members (Part 2) 💰",
-    date: "May 2025",
-    thumbnail: videoPrePic,
-    videoUrl: "https://www.youtube.com/embed/iAaM_m2lfh8",
-  },
-  {
-    id: 1,
-    title: "📢 Live REVIEWS | Premium Group Members (Part 3) 💰",
-    date: "May 2025",
-    thumbnail: videoPrePic,
-    videoUrl: "https://www.youtube.com/embed/8-4VPEjgQ-Y",
-  },
-  {
-    id: 1,
-    title: "📢 Live REVIEWS | Premium Group Members (Part 4) 💰",
-    date: "May 2025",
-    thumbnail: videoPrePic,
-    videoUrl: "https://www.youtube.com/embed/O2Gp0mZVV-0",
-  },
-  {
-    id: 1,
-    title: "📢 Live REVIEWS | Premium Group Members (Part 5) 💰",
-    date: "May 2025",
-    thumbnail: videoPrePic,
-    videoUrl: "https://www.youtube.com/embed/YAe7C5kHZ00",
-  },
-];
+// videos will be fetched from API and stored in state
 
 const ReviewPage = () => {
   const theme = useTheme();
@@ -112,11 +76,12 @@ const ReviewPage = () => {
   const [reviews, setReviews] = useState([]);
   const [isRefresh, setIsRefresh] = useState(false);
   const [videosPage, setVideosPage] = useState(1);
+  const [videos, setVideos] = useState([]);
   const videosPerPage = 3;
   const [reviewsPage, setReviewsPage] = useState(1);
 
-  // Calculate current videos to display
-  const currentVideos = videos.slice(
+  // Calculate current videos to display (fetched)
+  const currentVideos = (videos || []).slice(
     (videosPage - 1) * videosPerPage,
     videosPage * videosPerPage
   );
@@ -142,19 +107,43 @@ const ReviewPage = () => {
     setCurrentVideo("");
   };
 
-  let REVIEW_URL = "https://royal-traders-5euy.vercel.app/rating";
-  const fetchReviews = () => {
-    axios
-      .get(REVIEW_URL)
-      .then((res) => {
-        console.log(res.data);
-        setReviews(res.data);
-      })
-      .catch((err) => console.log(err));
-  };
+  const REVIEW_URL = "https://royal-traders-5euy.vercel.app/rating";
+  const VIDEO_URL = "https://royal-traders-5euy.vercel.app/videoreview";
+
   useEffect(() => {
+    const fetchReviews = () => {
+      axios
+        .get(REVIEW_URL)
+        .then((res) => {
+          console.log(res.data);
+          setReviews(res.data);
+        })
+        .catch((err) => console.log(err));
+    };
     fetchReviews();
   }, [isRefresh]);
+
+  // fetch videos on mount
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        const res = await axios.get(VIDEO_URL);
+        const data = Array.isArray(res.data) ? res.data : [];
+        // normalize each video object: ensure id and thumbnail keys exist
+        const normalized = data.map((v) => ({
+          id: v._id || v.id,
+          title: v.title,
+          videoUrl: v.videoUrl,
+          date: v.date,
+          thumbnail: videoPrePic,
+        }));
+        setVideos(normalized.sort((a, b) => new Date(b.date) - new Date(a.date)));
+      } catch (err) {
+        console.error("Failed to fetch videos", err);
+      }
+    };
+    fetchVideos();
+  }, []);
 
   return (
     <Box>
