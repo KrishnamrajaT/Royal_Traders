@@ -6,12 +6,25 @@ const createPriceLabel = async (req, res) => {
 
   try {
     // If you expect only one document, use a fixed filter (empty or a specific key).
-    // This will update the first document found or create a new one if none exists.
-    const filter = {}; // matches any existing document
-    const update = { price3, price12, offerPrice12, offerPercent12 };
+    // We'll merge incoming values onto the existing document so undefined/null
+    // request values won't overwrite existing fields.
+    const filter = {};
+
+    // Get existing doc if present
+    const existing = await PriceLabel.findOne(filter).lean();
+
+    const merged = {
+      price3: typeof price3 !== "undefined" && price3 !== null ? price3 : existing?.price3,
+      price12: typeof price12 !== "undefined" && price12 !== null ? price12 : existing?.price12,
+      offerPrice12:
+        typeof offerPrice12 !== "undefined" && offerPrice12 !== null ? offerPrice12 : existing?.offerPrice12,
+      offerPercent12:
+        typeof offerPercent12 !== "undefined" && offerPercent12 !== null ? offerPercent12 : existing?.offerPercent12,
+    };
+
     const options = { new: true, upsert: true, setDefaultsOnInsert: true };
 
-    const updated = await PriceLabel.findOneAndUpdate(filter, update, options).lean();
+    const updated = await PriceLabel.findOneAndUpdate(filter, merged, options).lean();
     res.status(200).json({ message: "Price label saved", data: updated });
   } catch (error) {
     console.error(error);
