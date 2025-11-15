@@ -3,9 +3,17 @@ import DisclaimerForm from "../components/DisclaimerModal";
 import PaymentModal from "../Pages/PaymentPage";
 import "./MentorShipCard.css";
 
-function MentorshipCard() {
+function MentorshipCard({ priceValues, loadingPrice }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-   const [isOpenPaymentModal, setIsOpenPaymentModal] = useState(false);
+  const [isOpenPaymentModal, setIsOpenPaymentModal] = useState(false);
+
+  // derive displayed prices with fallbacks
+  const fallback3 = 5999; // default 3-month price
+  const displayPrice3 =
+    priceValues && typeof priceValues.price3 === "number" ? priceValues.price3 : fallback3;
+
+  const displayPrice12 =
+    priceValues && typeof priceValues.price12 === "number" ? priceValues.price12 : null;
   return (
     <div className="mentorship-card">
       <div className="card-glow"></div>
@@ -83,11 +91,12 @@ function MentorshipCard() {
 
         <div className="cta-section">
           <div className="price-tag">
-            <span className="price">5,999/-</span>
+            <span className="price">{loadingPrice ? "..." : `${displayPrice3}/-`}</span>
             <span className="duration">for 3 Months</span>
+            
           </div>
           <button
-            onClick={() =>setIsOpenPaymentModal(true)}
+            onClick={() => setIsOpenPaymentModal(true)}
             className="enroll-button"
           >
             Join Program Now
@@ -96,7 +105,7 @@ function MentorshipCard() {
         </div>
       </div>
 
-      <div className="card-footer">
+  <div className="card-footer">
         <div className="disclaimer">
           <span>⚠️</span> Not a get-rich-quick scheme. Requires consistent
           effort.
@@ -113,6 +122,8 @@ function MentorshipCard() {
       <PaymentModal
         onClose={() => setIsOpenPaymentModal(false)}
         open={isOpenPaymentModal}
+        priceValues={priceValues}
+        loadingPrice={loadingPrice}
       />
 
       </div>

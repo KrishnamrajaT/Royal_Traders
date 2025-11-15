@@ -18,20 +18,28 @@ import QRCode from "react-qr-code";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import AlertProof from "./AlertProof";
 
-const PaymentModal = ({ open, onClose }) => {
+const PaymentModal = ({ open, onClose, priceValues, loadingPrice }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [copied, setCopied] = useState(false);
   const [step, setStep] = useState("payment");
   const [selectedPlan, setSelectedPlan] = useState("12months");
 
-  // Plan amounts
+  // Plan amounts (derive from priceValues if available)
   const planAmounts = {
-    "12months": "17999",
-    "3months": "5999",
+    months12: priceValues && typeof priceValues.price12 === "number" ? Number(priceValues.price12) : 17999,
+    months3: priceValues && typeof priceValues.price3 === "number" ? Number(priceValues.price3) : 5999,
   };
 
-  const amount = planAmounts[selectedPlan];
+  // compute offer price and percent for 12-month plan
+  const p12 = priceValues && typeof priceValues.price12 === "number" ? Number(priceValues.price12) : null;
+  const off12 = priceValues && typeof priceValues.offerPrice12 === "number" ? Number(priceValues.offerPrice12) : null;
+  const percentFromApi = priceValues && typeof priceValues.offerPercent12 === "number" ? Number(priceValues.offerPercent12) : null;
+  const computedPercent = percentFromApi ?? (p12 && off12 ? Math.round(((p12 - off12) / p12) * 100) : null);
+  // offerPrice: prefer explicit offerPrice, else compute from percent, else fallback to original
+  const offerPrice12 = off12 ?? (p12 && percentFromApi ? Math.round(p12 * (1 - percentFromApi / 100)) : null);
+
+  const amount = selectedPlan === "12months" ? (offerPrice12 ?? planAmounts.months12) : planAmounts.months3;
 
   // UPI Details
   const upiId = "royal82975669@barodampay";
@@ -169,10 +177,29 @@ const PaymentModal = ({ open, onClose }) => {
                           flexWrap: isMobile ? "wrap" : "nowrap",
                         }}
                       >
-                        <span>12 Months (₹19,999)</span>
-                        <Chip
-                          label={isMobile ? "25% OFF" : "25% OFF on 24,000"}
-                          size="small"
+                                <span>
+                                  12 Months (₹{planAmounts.months12})
+                                </span>
+                                <Chip
+                                  label={
+                                    <Box sx={{ display: "flex", alignItems: "center", gap: 1, fontSize: isMobile ? "0.7rem" : "0.8rem" }}>
+                                      <Box component="span" sx={{ fontWeight: 600 }}>
+                                        {computedPercent ? `${computedPercent}% OFF` : "25% OFF"}
+                                      </Box>
+                                      {/** show original and offer prices when available */}
+                                      <Box component="span" sx={{ color: "rgba(255,255,255,0.7)", display: "flex", gap: 1, alignItems: "center" }}>
+                                        {p12 ? (
+                                          <Box component="span" sx={{ textDecoration: "line-through", opacity: 0.8 }}>
+                                            ₹{p12}
+                                          </Box>
+                                        ) : null}
+                                        <Box component="span" sx={{ fontWeight: 700 }}>
+                                          ₹{offerPrice12 ?? (p12 ?? planAmounts.months12)}
+                                        </Box>
+                                      </Box>
+                                    </Box>
+                                  }
+                                  size="small"
                           sx={{
                             bgcolor: "#10B981",
                             color: "white",
@@ -203,7 +230,7 @@ const PaymentModal = ({ open, onClose }) => {
                         }}
                       />
                     }
-                    label="3 Months (₹5,999)"
+                    label={`3 Months (₹${planAmounts.months3})`}
                     sx={{
                       marginRight: isMobile ? 0 : 13.5,
                       marginLeft:isMobile?"-8px":"-11px"
