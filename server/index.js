@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const clientRoutes = require("./routes/ClientRoutes");
 const ratingRoutes = require("./routes/RatingRoutes");
 const priceLabelRoutes = require("./routes/PriceLabelRoutes");
+const videoReviewRoutes = require("./routes/VideoReviewRoutes");
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(cors());
 app.use("/client", clientRoutes);
 app.use("/rating", ratingRoutes);
 app.use("/pricelabel", priceLabelRoutes);
+app.use("/videoreview", videoReviewRoutes);
 
 const PORT = 8080;
 app.listen(PORT, () => {
